@@ -1,4 +1,5 @@
 import Header from '@/components/Header'
+import RecentUploads from '@/components/RecentUploads';
 import Sidebar from '@/components/Sidebar'
 import StatsCard from "@/components/StatsCard";
 import {
@@ -10,11 +11,15 @@ import {
 export default function page() {
   return (
     <div className='flex'>
+      {/* Sidebar */}
       <Sidebar />
+      
       <div className='flex flex-1 flex-col'>
+        {/* Header */}
         <Header />
 
         <main className='flex-1 p-6'>
+            {/* Login | Welcome */}
             <div className='flex flex-col md:flex-row justify-between items-center mb-5'>
               <h1 className="mb-4 text-lg md:text-2xl font-semibold md:mt-3">
                 Welcome back, Aisha
@@ -26,6 +31,7 @@ export default function page() {
               </button>
             </div>
 
+            {/* StatsCard Grid */}
             <div className="grid gap-5 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
               <StatsCard
                 title="Total Resources"
@@ -51,6 +57,9 @@ export default function page() {
                 bgColor="bg-green-50"
               />
             </div>
+
+          {/* Recent Uploads Section */}
+            <RecentUploads />
         </main>
       </div>
     </div>
