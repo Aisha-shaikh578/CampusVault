@@ -6,7 +6,7 @@ import { BsMoon } from "react-icons/bs";
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between gap-4 border-b bg-white px-4 py-3">
+    <header className="flex items-center justify-between gap-4 border-b px-4 py-3">
       {/* Search Bar */}
       <div className="relative flex-1 max-w-xl">
         <FiSearch

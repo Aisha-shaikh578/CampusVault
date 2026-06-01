@@ -34,7 +34,7 @@ const menuItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="flex h-screen flex-col justify-between border-r bg-white px-2 py-4 lg:w-55 w-20">
+    <aside className="flex h-screen flex-col justify-between border-r px-2 py-4 lg:w-55 w-20">
       <div>
         {/* Logo */}
         <div className="mb-10 flex items-center justify-center gap-3 px-2">
