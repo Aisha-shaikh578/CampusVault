@@ -1,3 +1,4 @@
+import ActionBtn from "@/components/ActionBtn";
 import {
   FiUploadCloud,
   FiFileText,
@@ -83,44 +84,11 @@ export default function UploadPage() {
                 </label>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <button
-                    type="button"
-                    className="flex items-center gap-3 border border-gray-300 rounded-2xl p-4 hover:border-blue-500 hover:bg-blue-50 transition cursor-pointer"
-                  >
-                    <FiFileText
-                      size={22}
-                      className="text-red-500"
-                    />
-                    <span className="font-medium">
-                      PDF
-                    </span>
-                  </button>
+                  <ActionBtn icon={<FiFileText size={22} color="red"/>} type='PDF'/>
 
-                  <button
-                    type="button"
-                    className="flex items-center gap-3 border border-gray-300 rounded-2xl p-4 hover:border-blue-500 hover:bg-blue-50 transition cursor-pointer"
-                  >
-                    <FiLink
-                      size={22}
-                      className="text-gray-500"
-                    />
-                    <span className="font-medium">
-                      Link
-                    </span>
-                  </button>
+                  <ActionBtn icon={<FiLink size={22} color="gray"/>} type='Link'/>
 
-                  <button
-                    type="button"
-                    className="flex items-center gap-3 border border-gray-300 rounded-2xl p-4 hover:border-blue-500 hover:bg-blue-50 transition cursor-pointer"
-                  >
-                    <FiFolder
-                      size={22}
-                      className="text-yellow-500"
-                    />
-                    <span className="font-medium">
-                      Document
-                    </span>
-                  </button>
+                  <ActionBtn icon={<FiFolder size={22} color="orange"/>} type='Document'/>
                 </div>
               </div>
             </div>
