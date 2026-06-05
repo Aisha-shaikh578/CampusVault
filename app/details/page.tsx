@@ -1,3 +1,4 @@
+import Button from "@/components/Button";
 import Link from "next/link";
 import { BiDownload, BiSend, BiShare } from "react-icons/bi";
 import { BsArrowLeft } from "react-icons/bs";
@@ -47,20 +48,11 @@ export default function NoteDetails() {
         </h2>
 
         <div className="flex flex-wrap gap-4">
-          <button className="flex items-center gap-2 px-5 py-3 border rounded-lg hover:text-white hover:bg-[#4338ca] transition cursor-pointer">
-            <BiDownload size={18} />
-            Download
-          </button>
+          <Button text="Download" icon={<BiDownload size={18}/>}/>
 
-          <button className="flex items-center gap-2 px-5 py-3 border rounded-lg hover:text-white hover:bg-[#4338ca] transition cursor-pointer">
-            <BiShare size={18} />
-            Share
-          </button>
+          <Button text="Share" icon={<BiShare size={18}/>}/>
 
-          <button className="flex items-center gap-2 px-5 py-3 border rounded-lg hover:text-white hover:bg-[#4338ca] transition cursor-pointer">
-            <RiBookMarkedFill size={18} />
-            Bookmark
-          </button>
+          <Button text="Bookmark" icon={<RiBookMarkedFill size={18}/>}/>
         </div>
       </div>
 
