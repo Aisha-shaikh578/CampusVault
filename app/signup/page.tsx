@@ -1,4 +1,30 @@
+'use client'
+import { auth } from "@/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import Link from "next/link";
+import { useState } from "react";
+
 export default function SignupPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  }
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  }
+
+  const signUpUser = async() => {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(userCredentials);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-neutral-50 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-md">
@@ -22,12 +48,16 @@ export default function SignupPage() {
               <input
                 type="email"
                 placeholder="Email"
+                value={email}
+                onInput={handleEmail}
                 className="w-full rounded-2xl border border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
               />
 
               <input
                 type="password"
                 placeholder="Password"
+                value={password}
+                onInput={handlePassword}
                 className="w-full rounded-2xl border border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
               />
 
@@ -70,6 +100,7 @@ export default function SignupPage() {
                     transition
                     cursor-pointer
                   "
+                  onClick={signUpUser}
                 >
                   SIGN UP
                 </button>
@@ -77,7 +108,9 @@ export default function SignupPage() {
                 <p className="mt-5 text-sm text-neutral-600">
                   Already have an account?{" "}
                   <span className="font-semibold underline cursor-pointer">
-                    Login
+                    <Link href='/login'>
+                      Login
+                    </Link>
                   </span>
                 </p>
               </div>
