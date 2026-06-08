@@ -1,4 +1,25 @@
+'use client'
+
+import { auth } from "@/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
 export default function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
+
+  const handleLogIn = async () => {
+    try {
+      const userCredentials = await signInWithEmailAndPassword(auth, email, password)
+      console.log(userCredentials)
+      router.push("/dashboard")
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <main className="min-h-screen bg-neutral-50 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-md">
@@ -37,6 +58,8 @@ export default function LoginPage() {
                   focus:border-neutral-300
                   transition
                 "
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
 
               <input
@@ -54,6 +77,8 @@ export default function LoginPage() {
                   focus:border-neutral-300
                   transition
                 "
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
@@ -81,6 +106,7 @@ export default function LoginPage() {
                     cursor-pointer
                     transition
                   "
+                  onClick={handleLogIn}
                 >
                   LOGIN
                 </button>
@@ -88,7 +114,9 @@ export default function LoginPage() {
                 <p className="mt-5 text-sm text-neutral-600">
                   Don&apos;t have an account?{" "}
                   <span className="font-semibold underline cursor-pointer">
-                    Sign Up
+                    <Link href='/signup'>
+                     Sign Up
+                    </Link>
                   </span>
                 </p>
               </div>
