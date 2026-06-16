@@ -9,6 +9,8 @@ import {
   FiLogOut,
 } from "react-icons/fi";
 
+import { useAuth } from "@/context/authContext";
+
 const menuItems = [
   {
     name: "Home",
@@ -33,6 +35,9 @@ const menuItems = [
 ];
 
 export default function Sidebar() {
+
+  const { user } = useAuth();
+
   return (
     <aside className="flex h-screen flex-col justify-between border-r px-2 py-4 lg:w-55 w-20">
       <div>
@@ -68,11 +73,15 @@ export default function Sidebar() {
       </div>
 
       {/* Logout */}
+      {
+      user ?  
       <button className="flex flex-col items-center gap-2 rounded-lg p-3 cursor-pointer hover:text-white hover:bg-[#4338ca] transition">
         <FiLogOut size={24} />
 
         <span className="text-sm">Logout</span>
-      </button>
+      </button> :
+      null
+      }
     </aside>
   );
 }
