@@ -10,6 +10,8 @@ import {
 } from "react-icons/fi";
 
 import { UseAuth } from "@/context/authContext";
+import { signOut } from "firebase/auth";
+import { auth } from "@/firebase";
 
 const menuItems = [
   {
@@ -37,6 +39,14 @@ const menuItems = [
 export default function Sidebar() {
 
   const { user } = UseAuth();
+
+  const handleLogOut = async() => {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.log('Logout failed ',err)
+    }
+  }
 
   return (
     <aside className="flex h-screen flex-col justify-between border-r px-2 py-4 lg:w-55 w-20">
@@ -75,7 +85,10 @@ export default function Sidebar() {
       {/* Logout */}
       {
       user ?  
-      <button className="flex flex-col items-center gap-2 rounded-lg p-3 cursor-pointer hover:text-white hover:bg-[#4338ca] transition">
+      <button 
+      className="flex flex-col items-center gap-2 rounded-lg p-3 cursor-pointer hover:text-white hover:bg-[#4338ca] transition"
+      onClick={handleLogOut}
+      >
         <FiLogOut size={24} />
 
         <span className="text-sm">Logout</span>
