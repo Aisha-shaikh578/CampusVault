@@ -3,8 +3,12 @@
 import { FiSearch, FiUser } from "react-icons/fi";
 import { MdLightMode } from "react-icons/md";
 import { BsMoon } from "react-icons/bs";
+import { useContext } from "react";
+import { ThemeContext } from "@/context/themeContext";
 
 export default function Header() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
   return (
     <header className="flex items-center justify-between gap-4 border-b px-4 py-3">
       {/* Search Bar */}
@@ -24,9 +28,14 @@ export default function Header() {
       {/* Right Section */}
       <div className="flex items-center gap-2 md:gap-4 xl:gap-6">
         {/* Theme Toggle */}
-        <button className="flex items-center rounded-full border p-2 hover:bg-gray-100 cursor-pointer">
+        <button 
+        className="flex items-center rounded-full border p-2 hover:bg-gray-100 cursor-pointer"
+        onClick={toggleTheme}>
+          {
+          theme === 'light' ?
+          <BsMoon size={16} /> :
           <MdLightMode size={18} />
-          <BsMoon size={16} />
+          }          
         </button>
 
         {/* Profile */}
