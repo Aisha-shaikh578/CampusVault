@@ -1,10 +1,14 @@
 @import "tailwindcss";
 
-:root{
-  --bg-light: #f8fafc;
-  --bg-dark: #0f172a;
+body{
+ background-color: #f8fafc;
 }
 
-body{
- background-color: var(--bg-light);
+.dark{
+  background-color: #0f172a;
+  color: aliceblue;
+}
+
+.dark::placeholder{
+  color: aliceblue;
 }

@@ -42,7 +42,7 @@ export default function UploadItem({
       </div>
 
       {/* Right Side */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 text-black">
         <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium">
           {type.toUpperCase()}
         </span>

@@ -27,7 +27,7 @@ export default function StatsCard({
         {title}
       </h3>
 
-      <p className="mt-2 text-4xl font-bold">
+      <p className="mt-2 text-4xl text-black font-bold">
         {value}
       </p>
     </div>

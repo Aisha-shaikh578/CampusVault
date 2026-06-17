@@ -11,14 +11,18 @@ import {
   FiBookmark,
 } from "react-icons/fi";
 import SignupPage from '../signup/page';
+import { ThemeContext } from "@/context/themeContext";
+import { useContext } from 'react';
 
 export default function page() {
   const { user } = UseAuth();
+  const { theme } = useContext(ThemeContext);
+
   return (
     <>
     {
      user ?
-    <div className='flex'>
+    <div className={`flex ${theme === 'light'? 'light': 'dark'}`}>
       {/* Sidebar */}
       <Sidebar />
       

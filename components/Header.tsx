@@ -10,7 +10,7 @@ export default function Header() {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
-    <header className="flex items-center justify-between gap-4 border-b px-4 py-3">
+    <header className={`${theme === 'light'? 'light': 'dark'} flex items-center justify-between gap-4 border-b px-4 py-3`}>
       {/* Search Bar */}
       <div className="relative flex-1 max-w-xl">
         <FiSearch
@@ -29,17 +29,17 @@ export default function Header() {
       <div className="flex items-center gap-2 md:gap-4 xl:gap-6">
         {/* Theme Toggle */}
         <button 
-        className="flex items-center rounded-full border p-2 hover:bg-gray-100 cursor-pointer"
+        className="flex items-center rounded-full border border-gray-400 p-2.5 hover:opacity-50 cursor-pointer"
         onClick={toggleTheme}>
           {
           theme === 'light' ?
-          <BsMoon size={16} /> :
-          <MdLightMode size={18} />
+          <BsMoon size={18} color="orange"/> :
+          <MdLightMode size={20} color="orange"/>
           }          
         </button>
 
         {/* Profile */}
-        <button className="flex h-10 w-10 items-center justify-center rounded-full border hover:bg-gray-100 cursor-pointer">
+        <button className="flex h-10.5 w-10.5 items-center justify-center rounded-full border border-gray-400 hover:opacity-50 cursor-pointer">
           <FiUser size={20} />
         </button>
       </div>
