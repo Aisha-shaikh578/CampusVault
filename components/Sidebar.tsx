@@ -9,7 +9,7 @@ import {
   FiLogOut,
 } from "react-icons/fi";
 
-import { useAuth } from "@/context/authContext";
+import { UseAuth } from "@/context/authContext";
 
 const menuItems = [
   {
@@ -36,7 +36,7 @@ const menuItems = [
 
 export default function Sidebar() {
 
-  const { user } = useAuth();
+  const { user } = UseAuth();
 
   return (
     <aside className="flex h-screen flex-col justify-between border-r px-2 py-4 lg:w-55 w-20">
