@@ -3,11 +3,15 @@
 import { FiSearch, FiUser } from "react-icons/fi";
 import { MdLightMode } from "react-icons/md";
 import { BsMoon } from "react-icons/bs";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ThemeContext } from "@/context/themeContext";
 
 export default function Header() {
   const { theme, toggleTheme } = useContext(ThemeContext);
+  
+  useEffect(() => {
+    localStorage.setItem('theme',theme)
+  },[theme])
 
   return (
     <header className={`${theme === 'light'? 'light': 'dark'} flex items-center justify-between gap-4 border-b px-4 py-3`}>
