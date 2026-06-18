@@ -1,10 +1,15 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { createContext, useState, ReactNode } from "react";
 
-export const ThemeContext = createContext('light');
+type ThemeContextType = {
+  theme: string;
+  toggleTheme: () => void;
+}
 
-export const ThemeProvider = ({ children }) => {
+export const ThemeContext = createContext<ThemeContextType>({ theme: 'light', toggleTheme: () => {} });
+
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [theme, setTheme] = useState('light');
 
   const toggleTheme = () => {

@@ -131,7 +131,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Bottonm Decorative Circles */}
+          {/* Bottom Decorative Circles */}
           <div className="absolute -bottom-10 -left-24 h-60 w-60 rounded-full border-7 border-neutral-100 dark:border-neutral-700" />
         </section>
       </div>
