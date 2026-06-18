@@ -43,7 +43,7 @@ export default function SignupPage() {
               Sign Up
             </h2>
 
-            <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-300">
+            <p className="mt-2 xl:mt-3 text-sm text-neutral-500 dark:text-neutral-300">
               Create an account to continue
             </p>
 
