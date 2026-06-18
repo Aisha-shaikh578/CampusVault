@@ -1,5 +1,7 @@
 'use client'
+
 import { auth } from "@/firebase";
+import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
 import { useState } from "react";
@@ -8,11 +10,11 @@ export default function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleEmail = (e) => {
+  const handleEmail = (e:React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   }
 
-  const handlePassword = (e) => {
+  const handlePassword = (e:React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   }
 
@@ -21,25 +23,27 @@ export default function SignupPage() {
       const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
       console.log(userCredentials);
     } catch (err) {
-      console.log(err.message);
+      if(err instanceof FirebaseError) {
+        console.log(err.message);
+      }
     }
   };
 
   return (
-    <main className="min-h-screen bg-neutral-50 flex items-center justify-center px-4 py-10">
+    <main className='min-h-screen bg-neutral-50 dark:bg-[#0f172a] flex items-center justify-center px-4 py-10'>
       <div className="w-full max-w-md">
-        <section className="relative overflow-hidden rounded-4xl border border-neutral-200 bg-white shadow-lg p-8">
+        <section className="relative overflow-hidden rounded-4xl border border-neutral-200 bg-white dark:bg-[#0f172a] shadow-lg p-8">
           {/* Decorative Circles Top */}
-          <div className="absolute -top-20 -right-20 h-52 w-52 rounded-full border-6 border-neutral-100" />
-          <div className="absolute top-8 -right-24 h-60 w-60 rounded-full border-6 border-neutral-100" />
+          <div className="absolute -top-20 -right-20 h-52 w-52 rounded-full border-6 border-neutral-100 dark:border-neutral-700" />
+          <div className="absolute top-8 -right-24 h-60 w-60 rounded-full border-6 border-neutral-100 dark:border-neutral-700" />
 
-          <div className="relative z-10">
+          <div className='relative z-10'>
             {/* Title */}
-            <h2 className="text-5xl font-bold text-neutral-900">
+            <h2 className="text-5xl font-bold text-neutral-900 dark:text-white">
               Sign Up
             </h2>
 
-            <p className="mt-2 text-sm text-neutral-500">
+            <p className="mt-2 text-sm text-neutral-500 dark:text-neutral-300">
               Create an account to continue
             </p>
 
@@ -49,22 +53,22 @@ export default function SignupPage() {
                 type="email"
                 placeholder="Email"
                 value={email}
-                onInput={handleEmail}
-                className="w-full rounded-2xl border border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
+                onChange={handleEmail}
+                className="w-full rounded-2xl border dark:text-white dark:placeholder:text-white border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
               />
 
               <input
                 type="password"
                 placeholder="Password"
                 value={password}
-                onInput={handlePassword}
-                className="w-full rounded-2xl border border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
+                onChange={handlePassword}
+                className="w-full rounded-2xl border dark:text-white dark:placeholder:text-white border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
               />
 
               <input
                 type="password"
                 placeholder="Confirm Password"
-                className="w-full rounded-2xl border border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
+                className="w-full rounded-2xl border dark:text-white dark:placeholder:text-white border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
               />
 
               {/* Terms */}
@@ -74,7 +78,7 @@ export default function SignupPage() {
                   className="h-4 w-4 cursor-pointer"
                 />
 
-                <span>
+                <span className="dark:text-white">
                   I agree with{" "}
                   <span className="underline font-medium cursor-pointer">
                     Terms & Services
@@ -105,9 +109,9 @@ export default function SignupPage() {
                   SIGN UP
                 </button>
 
-                <p className="mt-5 text-sm text-neutral-600">
+                <p className="mt-5 text-sm text-neutral-600 dark:text-neutral-300">
                   Already have an account?{" "}
-                  <span className="font-semibold underline cursor-pointer">
+                  <span className="font-semibold underline cursor-pointer dark:text-white">
                     <Link href='/login'>
                       Login
                     </Link>
@@ -117,7 +121,7 @@ export default function SignupPage() {
             </div>
           </div>
           {/* Decorative Circles Bottom*/}
-          <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full border-6 border-neutral-100" />
+          <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full border-6 border-neutral-100 dark:border-neutral-700" />
         </section>
       </div>
     </main>
