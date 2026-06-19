@@ -12,6 +12,7 @@ import {
 import { UseAuth } from "@/context/authContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase";
+import Image from "next/image";
 
 const menuItems = [
   {
@@ -52,8 +53,12 @@ export default function Sidebar() {
     <aside className="flex h-screen flex-col justify-between border-r px-2 py-4 lg:w-55 w-20">
       <div>
         {/* Logo */}
-        <div className="mb-10 flex items-center justify-center gap-3 px-2">
-          <div className="h-10 w-10 rounded-lg bg-black" />
+        <div className="mb-4 flex items-center justify-center gap-1.5 px-1">
+          <Image 
+            src='/favicon.ico'
+            alt='Logo'
+            width={50}
+            height={50}/>
 
           <span className="hidden lg:block text-lg font-bold">
             Campus Vault
