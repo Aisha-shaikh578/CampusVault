@@ -14,7 +14,7 @@ import SignupPage from '../signup/page';
 import { ThemeContext } from "@/context/themeContext";
 import { useContext } from 'react';
 
-export default function page() {
+export default function DashboardPage() {
   const { user } = UseAuth();
   const { theme } = useContext(ThemeContext);
 
