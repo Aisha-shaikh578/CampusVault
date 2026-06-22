@@ -17,6 +17,7 @@ import { useContext } from 'react';
 export default function DashboardPage() {
   const { user } = UseAuth();
   const { theme } = useContext(ThemeContext);
+  const userName = user?.email?.split('@')[0];
 
   return (
     <>
@@ -33,7 +34,7 @@ export default function DashboardPage() {
         <main className='flex-1 p-6'>
             <div className='flex flex-col md:flex-row justify-between items-center mb-5'>
               <h1 className="mb-4 text-lg md:text-2xl font-semibold md:mt-3">
-                Welcome back, {user.email}
+                Welcome back, {userName}
               </h1>
 
               <button className='bg-[#4338ca] text-white px-4 py-2 rounded flex gap-2 items-center cursor-pointer hover:opacity-50'>
