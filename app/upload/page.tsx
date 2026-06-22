@@ -1,4 +1,9 @@
+'use client'
+
 import ActionBtn from "@/components/ActionBtn";
+import Link from "next/link";
+import { useState } from "react";
+import { useDropzone } from "react-dropzone";
 import {
   FiUploadCloud,
   FiFileText,
@@ -7,6 +12,15 @@ import {
 } from "react-icons/fi";
 
 export default function UploadPage() {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  
+  const onDrop = (acceptedFiles: File[]) => {
+    setSelectedFile(acceptedFiles[0]);
+  }
+  console.log(selectedFile);
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+
   return (
     <div className="w-full p-8">
       <div className="max-w-5xl mx-auto">
@@ -23,7 +37,10 @@ export default function UploadPage() {
           </div>
 
           {/* Upload Area */}
-          <div className="border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center hover:border-blue-500 transition-all">
+          <div 
+          className="border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center hover:border-blue-500 transition-all"
+          {...getRootProps()}>
+            <input type="file" {...getInputProps()}/>
             <FiUploadCloud
               size={60}
               className="mx-auto text-blue-600"
@@ -95,9 +112,11 @@ export default function UploadPage() {
 
             {/* Footer Buttons */}
             <div className="flex justify-end gap-4 mt-10">
+              <Link href='/dashboard'>
               <button className="px-6 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition cursor-pointer">
                 Cancel
               </button>
+              </Link>
 
               <button className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition cursor-pointer">
                 Upload Resource
