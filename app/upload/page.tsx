@@ -3,7 +3,7 @@
 import ActionBtn from "@/components/ActionBtn";
 import Link from "next/link";
 import { useState } from "react";
-import { useDropzone } from "react-dropzone";
+import { useDropzone, FileRejection } from "react-dropzone";
 import {
   FiUploadCloud,
   FiFileText,
@@ -14,13 +14,52 @@ import { MdCancel } from "react-icons/md";
 
 export default function UploadPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  
-  const onDrop = (acceptedFiles: File[]) => {
-    setSelectedFile(acceptedFiles[0]);
-  }
-  console.log(selectedFile);
+  const [error, setError] = useState<string | null>(null);
+  const MAX_SIZE = 5 * 1024 * 1024;   // 5MB
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const onDropAccepted = (acceptedFiles: File[]) => {
+    setError(null);
+    setSelectedFile(acceptedFiles[0]);
+  };
+
+  const onDropRejected = (fileRejections: FileRejection[]) => {
+    if (!fileRejections || fileRejections.length === 0) return;
+    const rej = fileRejections[0];
+    const { file, errors } = rej as FileRejection & { file: File };
+
+    if (file.name.toLowerCase().endsWith('.apk')) {
+      setError('APK files are not allowed.');
+      return;
+    }
+
+    if (errors) {
+      const firstErr = errors[0];
+      if (firstErr.code === 'file-too-large') {
+        setError('File is too large. Maximum allowed size is 5 MB.');
+        return;
+      }
+      if (firstErr.code === 'file-invalid-type') {
+        setError('Invalid file type. Allowed types: pdf, doc, docx, jpeg, png.');
+        return;
+      }
+    }
+
+    // Fallback message
+    setError('File not accepted. Please check the file type and size.');
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDropAccepted,
+    onDropRejected,
+    maxSize: MAX_SIZE,
+    accept: {
+      'application/pdf': ['.pdf'],
+      'application/msword': ['.doc'],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+      'image/jpeg': ['.jpeg', '.jpg'],
+      'image/png': ['.png']
+    }
+  });
 
   return (
     <div className="w-full p-8">
@@ -71,6 +110,9 @@ export default function UploadPage() {
              </button>
             </div>
             }
+            {error && (
+            <p className="mt-5 text-sm text-red-600">{error}</p>
+            )}
           </div>
 
           {/* Resource Details */}
