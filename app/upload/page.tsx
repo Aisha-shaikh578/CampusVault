@@ -10,6 +10,7 @@ import {
   FiLink,
   FiFolder,
 } from "react-icons/fi";
+import { MdCancel } from "react-icons/md";
 
 export default function UploadPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -39,7 +40,10 @@ export default function UploadPage() {
           {/* Upload Area */}
           <div 
           className="border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center hover:border-blue-500 transition-all"
-          {...getRootProps()}>
+          {...getRootProps()}> 
+          {
+          selectedFile === null ?
+            <div>
             <input type="file" {...getInputProps()}/>
             <FiUploadCloud
               size={60}
@@ -55,6 +59,18 @@ export default function UploadPage() {
             <button className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition cursor-pointer">
               Select Files
             </button>
+            </div> 
+              :
+            <div className="flex space-x-2">
+             <FiFileText size={30}/>
+             <span>{selectedFile.name}</span>
+             <button 
+             className="mx-5 cursor-pointer"
+             onClick={() => setSelectedFile(null)}>
+              <MdCancel color="red" size={22}/>
+             </button>
+            </div>
+            }
           </div>
 
           {/* Resource Details */}
