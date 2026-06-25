@@ -1,6 +1,7 @@
 'use client'
 
 import ActionBtn from "@/components/ActionBtn";
+import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 import { useState } from "react";
 import { useDropzone, FileRejection } from "react-dropzone";
@@ -15,7 +16,33 @@ import { MdCancel } from "react-icons/md";
 export default function UploadPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [title, setTitle] = useState<string | null>(null);
+  const [category, setCategory] = useState('Computer Science');
+  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [resourceType, setResourceType] = useState<'PDF' | 'Link' | 'Document'>('PDF')
   const MAX_SIZE = 5 * 1024 * 1024;   // 5MB
+  
+  const handleUpload = async() => {
+    if(!selectedFile) {
+      setError('Please select a file first');
+      return;
+    }
+
+    if(!title) {
+      setError('Please enter a title.');
+      return;
+    }
+    
+    const fileName = `${category}/${Date.now()}-${selectedFile.name}`;
+    const { error } = await supabase.storage.from('Storage').upload(fileName, selectedFile);
+    if(error) {
+      setError(error.message);
+      return;
+    }
+    const { data } = supabase.storage.from('Storage').getPublicUrl(fileName);
+    const fileUrl = data.publicUrl;
+    console.log(fileUrl);
+  }
 
   const onDropAccepted = (acceptedFiles: File[]) => {
     setError(null);
@@ -132,6 +159,8 @@ export default function UploadPage() {
                   type="text"
                   placeholder="Enter resource title"
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-1 focus:ring-blue-500"
+                  value={title || ''}
+                  onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
 
@@ -141,7 +170,10 @@ export default function UploadPage() {
                   Subject / Category
                 </label>
 
-                <select className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer">
+                <select className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                >
                   <option>Computer Science</option>
                   <option>Operating System</option>
                   <option>Mathematics</option>
@@ -159,11 +191,23 @@ export default function UploadPage() {
                 </label>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <ActionBtn icon={<FiFileText size={22} color="red"/>} type='PDF'/>
+                  <ActionBtn 
+                  icon={<FiFileText size={22} color="red"/>} 
+                  type='PDF' 
+                  selected={resourceType === 'PDF'}
+                  onClick={() => setResourceType('PDF')}/>
 
-                  <ActionBtn icon={<FiLink size={22} color="gray"/>} type='Link'/>
+                  <ActionBtn 
+                  icon={<FiLink size={22} color="gray"/>} 
+                  type='Link'
+                  selected={resourceType === 'Link'}
+                  onClick={() => setResourceType('Link')}/>
 
-                  <ActionBtn icon={<FiFolder size={22} color="orange"/>} type='Document'/>
+                  <ActionBtn 
+                  icon={<FiFolder size={22} color="orange"/>} 
+                  type='Document'
+                  selected={resourceType === 'Document'}
+                  onClick={() => setResourceType('Document')}/>
                 </div>
               </div>
             </div>
@@ -176,8 +220,10 @@ export default function UploadPage() {
               </button>
               </Link>
 
-              <button className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition cursor-pointer">
-                Upload Resource
+              <button 
+              className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition cursor-pointer"
+              onClick={handleUpload}>
+                {isUploading ? 'Uploading...' : 'Upload'}
               </button>
             </div>
           </div>
