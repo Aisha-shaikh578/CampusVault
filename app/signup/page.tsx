@@ -30,20 +30,20 @@ export default function SignupPage() {
   };
 
   return (
-    <main className='min-h-screen bg-neutral-50 dark:bg-[#0f172a] flex items-center justify-center px-4 py-10'>
+    <main className='min-h-screen bg-neutral-50 flex items-center justify-center px-4 py-10'>
       <div className="w-full max-w-md">
-        <section className="relative overflow-hidden rounded-4xl border border-neutral-200 bg-white dark:bg-[#0f172a] shadow-lg p-8">
+        <section className="relative overflow-hidden rounded-4xl border border-neutral-200 bg-white shadow-lg p-8">
           {/* Decorative Circles Top */}
-          <div className="absolute -top-20 -right-20 h-52 w-52 rounded-full border-6 border-neutral-100 dark:border-neutral-700" />
-          <div className="absolute top-8 -right-24 h-60 w-60 rounded-full border-6 border-neutral-100 dark:border-neutral-700" />
+          <div className="absolute -top-20 -right-20 h-52 w-52 rounded-full border-6 border-neutral-100" />
+          <div className="absolute top-8 -right-24 h-60 w-60 rounded-full border-6 border-neutral-100" />
 
           <div className='relative z-10'>
             {/* Title */}
-            <h2 className="text-5xl font-bold text-neutral-900 dark:text-white">
+            <h2 className="text-5xl font-bold text-neutral-900">
               Sign Up
             </h2>
 
-            <p className="mt-2 xl:mt-3 text-sm text-neutral-500 dark:text-neutral-300">
+            <p className="mt-2 xl:mt-3 text-sm text-neutral-500">
               Create an account to continue
             </p>
 
@@ -54,7 +54,7 @@ export default function SignupPage() {
                 placeholder="Email"
                 value={email}
                 onChange={handleEmail}
-                className="w-full rounded-2xl border dark:text-white dark:placeholder:text-white border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
+                className="w-full rounded-2xl border border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
               />
 
               <input
@@ -62,13 +62,13 @@ export default function SignupPage() {
                 placeholder="Password"
                 value={password}
                 onChange={handlePassword}
-                className="w-full rounded-2xl border dark:text-white dark:placeholder:text-white border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
+                className="w-full rounded-2xl border border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
               />
 
               <input
                 type="password"
                 placeholder="Confirm Password"
-                className="w-full rounded-2xl border dark:text-white dark:placeholder:text-white border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
+                className="w-full rounded-2xl border border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
               />
 
               {/* Terms */}
@@ -78,7 +78,7 @@ export default function SignupPage() {
                   className="h-4 w-4 cursor-pointer"
                 />
 
-                <span className="dark:text-white">
+                <span>
                   I agree with{" "}
                   <span className="underline font-medium cursor-pointer">
                     Terms & Services
@@ -109,9 +109,9 @@ export default function SignupPage() {
                   SIGN UP
                 </button>
 
-                <p className="mt-5 text-sm text-neutral-600 dark:text-neutral-300">
+                <p className="mt-5 text-sm text-neutral-600">
                   Already have an account?{" "}
-                  <span className="font-semibold underline cursor-pointer dark:text-white">
+                  <span className="font-semibold underline cursor-pointer">
                     <Link href='/login'>
                       Login
                     </Link>
@@ -121,7 +121,7 @@ export default function SignupPage() {
             </div>
           </div>
           {/* Decorative Circles Bottom*/}
-          <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full border-6 border-neutral-100 dark:border-neutral-700" />
+          <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full border-6 border-neutral-100" />
         </section>
       </div>
     </main>
