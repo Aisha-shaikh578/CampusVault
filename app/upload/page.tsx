@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 import Link from "next/link";
 import { useState } from "react";
 import { useDropzone, FileRejection } from "react-dropzone";
+import { toast } from "react-hot-toast";
 import {
   FiUploadCloud,
   FiFileText,
@@ -23,25 +24,50 @@ export default function UploadPage() {
   const MAX_SIZE = 5 * 1024 * 1024;   // 5MB
   
   const handleUpload = async() => {
-    if(!selectedFile) {
+    if (isUploading) return;
+
+    if (!selectedFile) {
       setError('Please select a file first');
       return;
     }
 
-    if(!title) {
+    if (!title) {
       setError('Please enter a title.');
       return;
     }
-    
-    const fileName = `${category}/${Date.now()}-${selectedFile.name}`;
-    const { error } = await supabase.storage.from('Storage').upload(fileName, selectedFile);
-    if(error) {
-      setError(error.message);
-      return;
+
+    setError(null);
+    setIsUploading(true);
+
+    try {
+      const fileName = `${category}/${Date.now()}-${selectedFile.name}`;
+      const { error } = await supabase.storage.from('Storage').upload(fileName, selectedFile);
+
+      if (error) {
+        setError(error.message);
+        toast.error(`Upload failed: ${error.message}`);
+        return;
+      }
+
+      const { data } = supabase.storage.from('Storage').getPublicUrl(fileName);
+      const fileUrl = data.publicUrl;
+
+      if (!fileUrl) {
+        const message = 'Unable to store your upload.';
+        setError(message);
+        toast.error(`Upload failed: ${message}`);
+        return;
+      }
+
+      console.log(fileUrl);
+      toast.success('Resource uploaded successfully!');
+    } catch (uploadError) {
+      const message = uploadError instanceof Error ? uploadError.message : 'Unexpected upload error.';
+      setError(message);
+      toast.error(`Upload failed: ${message}`);
+    } finally {
+      setIsUploading(false);
     }
-    const { data } = supabase.storage.from('Storage').getPublicUrl(fileName);
-    const fileUrl = data.publicUrl;
-    console.log(fileUrl);
   }
 
   const onDropAccepted = (acceptedFiles: File[]) => {
@@ -215,14 +241,15 @@ export default function UploadPage() {
             {/* Footer Buttons */}
             <div className="flex justify-end gap-4 mt-10">
               <Link href='/dashboard'>
-              <button className="px-6 py-3 border border-gray-300 rounded-xl hover:bg-gray-50 transition cursor-pointer">
+              <button className="px-4 py-2 border border-gray-300 rounded-xl hover:bg-gray-50 transition cursor-pointer">
                 Cancel
               </button>
               </Link>
 
               <button 
-              className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition cursor-pointer"
-              onClick={handleUpload}>
+              className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={handleUpload}
+              disabled={isUploading}>
                 {isUploading ? 'Uploading...' : 'Upload'}
               </button>
             </div>
