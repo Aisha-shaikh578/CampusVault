@@ -4,28 +4,111 @@ import { auth } from "@/firebase";
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type ChangeEvent } from "react";
+import { toast } from "react-hot-toast";
+
+interface FormErrors {
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  terms?: string;
+};
 
 export default function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleEmail = (e:React.ChangeEvent<HTMLInputElement>) => {
+  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-  }
+    setErrors((prev) => ({ ...prev, email: undefined }));
+  };
 
-  const handlePassword = (e:React.ChangeEvent<HTMLInputElement>) => {
+  const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
-  }
+    setErrors((prev) => ({ ...prev, password: undefined }));
+  };
 
-  const signUpUser = async() => {
+  const handleConfirmPassword = (e: ChangeEvent<HTMLInputElement>) => {
+    setConfirmPassword(e.target.value);
+    setErrors((prev) => ({ ...prev, confirmPassword: undefined }));
+  };
+
+  const handleTermsChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAgreeToTerms(e.target.checked);
+    setErrors((prev) => ({ ...prev, terms: undefined }));
+  };
+
+  const getFirebaseErrorMessage = (error: FirebaseError) => {
+    switch (error.code) {
+      case 'auth/email-already-in-use':
+        return 'This email is already in use.';
+      case 'auth/invalid-email':
+        return 'Please enter a valid email.';
+      case 'auth/weak-password':
+        return 'Password should be at least 6 characters.';
+      default:
+        return error.message;
+    }
+  };
+
+  const validateForm = (): FormErrors => {
+    const nextErrors: FormErrors = {};
+    const trimmedEmail = email.trim();
+
+    if (!trimmedEmail) {
+      nextErrors.email = 'Email is required.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      nextErrors.email = 'Please enter a valid email address.';
+    }
+
+    if (!password) {
+      nextErrors.password = 'Password is required.';
+    }
+
+    if (!confirmPassword) {
+      nextErrors.confirmPassword = 'Please confirm your password.';
+    } else if (password !== confirmPassword) {
+      nextErrors.confirmPassword = 'Passwords do not match.';
+    }
+
+    if (!agreeToTerms) {
+      nextErrors.terms = 'Please agree to the Terms & Services.';
+    }
+
+    return nextErrors;
+  };
+
+  const signUpUser = async () => {
+    if (isLoading) return;
+
+    const validationErrors = validateForm();
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
+      return;
+    }
+
+    setIsLoading(true);
+
     try {
-      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(userCredentials);
-    } catch (err) {
-      if(err instanceof FirebaseError) {
-        console.log(err.message);
-      }
+      const userCredentials = await createUserWithEmailAndPassword(auth, email.trim(), password);
+      toast.success('Account created successfully.');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      setAgreeToTerms(false);
+    } catch (error) {
+      const message = error instanceof FirebaseError
+        ? getFirebaseErrorMessage(error)
+        : 'An unexpected error occurred while creating your account.';
+
+      toast.error(message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -49,42 +132,58 @@ export default function SignupPage() {
 
             {/* Form UI */}
             <div className="mt-8 space-y-4">
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={handleEmail}
-                className="w-full rounded-2xl border border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
-              />
+              <div>
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={handleEmail}
+                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-neutral-900'}`}
+                />
+                {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+              </div>
 
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={handlePassword}
-                className="w-full rounded-2xl border border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
-              />
+              <div>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={handlePassword}
+                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.password ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-neutral-900'}`}
+                />
+                {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
+              </div>
 
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                className="w-full rounded-2xl border border-neutral-300 px-5 py-4 outline-none focus:border-neutral-900 transition"
-              />
+              <div>
+                <input
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={handleConfirmPassword}
+                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.confirmPassword ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-neutral-900'}`}
+                />
+                {errors.confirmPassword && <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>}
+              </div>
 
               {/* Terms */}
-              <label className="flex items-center gap-3 text-sm text-neutral-600 cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="h-4 w-4 cursor-pointer"
-                />
+              <div>
+                <label className="flex items-center gap-3 text-sm text-neutral-600 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={agreeToTerms}
+                    onChange={handleTermsChange}
+                    className="h-4 w-4 cursor-pointer"
+                  />
 
-                <span>
-                  I agree with{" "}
-                  <span className="underline font-medium cursor-pointer">
-                    Terms & Services
+                  <span>
+                    I agree with{" "}
+                    <span className="underline font-medium cursor-pointer">
+                      Terms & Services
+                    </span>
                   </span>
-                </span>
-              </label>
+                </label>
+                {errors.terms && <p className="mt-1 text-sm text-red-600">{errors.terms}</p>}
+              </div>
             </div>
 
             {/* Bottom Curved Area */}
@@ -103,10 +202,13 @@ export default function SignupPage() {
                     hover:bg-neutral-100
                     transition
                     cursor-pointer
+                    disabled:cursor-not-allowed
+                    disabled:opacity-70
                   "
                   onClick={signUpUser}
+                  disabled={isLoading}
                 >
-                  SIGN UP
+                  {isLoading ? 'Creating Account...' : 'SIGN UP'}
                 </button>
 
                 <p className="mt-5 text-sm text-neutral-600">
