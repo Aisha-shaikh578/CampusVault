@@ -1,6 +1,6 @@
 'use client'
 
-import { auth } from "@/firebase";
+import { auth } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";

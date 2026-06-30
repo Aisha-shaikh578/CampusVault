@@ -11,7 +11,7 @@ import {
 
 import { UseAuth } from "@/context/authContext";
 import { signOut } from "firebase/auth";
-import { auth } from "@/firebase";
+import { auth } from "@/lib/firebase";
 import Image from "next/image";
 
 const menuItems = [
