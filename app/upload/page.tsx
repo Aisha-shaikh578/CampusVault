@@ -1,7 +1,9 @@
 'use client'
 
 import ActionBtn from "@/components/ActionBtn";
+import { auth, db } from "@/lib/firebase";
 import { supabase } from "@/lib/supabase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import Link from "next/link";
 import { useState } from "react";
 import { useDropzone, FileRejection } from "react-dropzone";
@@ -22,6 +24,7 @@ export default function UploadPage() {
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [resourceType, setResourceType] = useState<'PDF' | 'Link' | 'Document'>('PDF')
   const MAX_SIZE = 5 * 1024 * 1024;   // 5MB
+  const user = auth.currentUser;
   
   const handleUpload = async() => {
     if (isUploading) return;
@@ -52,14 +55,29 @@ export default function UploadPage() {
       const { data } = supabase.storage.from('Storage').getPublicUrl(fileName);
       const fileUrl = data.publicUrl;
 
-      if (!fileUrl) {
+      if (!fileUrl || !user) {
         const message = 'Unable to store your upload.';
         setError(message);
         toast.error(`Upload failed: ${message}`);
         return;
       }
 
-      console.log(fileUrl);
+      await addDoc(
+        collection(db, 'resources'),
+        {
+          title,
+          category,
+          resourceType,
+          fileUrl,
+          uploadedBy: {
+            uid: user.uid,
+            email: user.email,
+            name: user?.email?.split('@')[0],
+          },
+          uploadedAt: serverTimestamp()
+        }
+      );
+
       toast.success('Resource uploaded successfully!');
     } catch (uploadError) {
       const message = uploadError instanceof Error ? uploadError.message : 'Unexpected upload error.';
@@ -67,6 +85,11 @@ export default function UploadPage() {
       toast.error(`Upload failed: ${message}`);
     } finally {
       setIsUploading(false);
+      setCategory('Computer Science');
+      setResourceType('PDF');
+      setSelectedFile(null);
+      setTitle(null);
+      setError(null);
     }
   }
 
