@@ -12,14 +12,14 @@ export default function NoteDetails() {
     <div className="flex-1 p-6 overflow-y-auto">
       {/* Back Button */}
     <Link href='/dashboard'>
-      <button className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition cursor-pointer">
+      <button className="flex items-center gap-2 text-sm text-(--text-secondary) hover:text-(--text-primary) transition cursor-pointer">
       <BsArrowLeft size={18} />
         Back
       </button>
     </Link>
 
       {/* Document Info */}
-      <div className="mt-6 bg-white rounded-xl border p-5 shadow-sm">
+      <div className="mt-6 bg-(--surface) rounded-xl border border-(--border) p-5 shadow-sm">
         <div className="flex items-start gap-4">
           <div className="p-3">
             <FiFileText />
@@ -30,11 +30,11 @@ export default function NoteDetails() {
               DSA Notes.pdf
             </h1>
 
-            <p className="text-gray-500 mt-1">
+            <p className="text-(--text-secondary) mt-1">
               Computer Science • 2 days ago
             </p>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-(--text-secondary) mt-1">
               Uploaded by Aisha
             </p>
           </div>
@@ -72,19 +72,19 @@ export default function NoteDetails() {
                   XYZ
                 </h3>
 
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-(--text-secondary)">
                   1 min ago
                 </span>
               </div>
 
-              <p className="text-gray-600 mt-1">
+              <p className="text-(--text-primary) mt-1">
                 Thanks for sharing!
               </p>
             </div>
           </div>
 
           <div className="flex gap-3">
-            <div className="bg-blue-300 rounded-full h-8 w-8"/>
+            <div className="bg-(--primary) rounded-full h-8 w-8"/>
 
             <div className="flex-1">
               <div className="flex justify-between">
@@ -92,12 +92,12 @@ export default function NoteDetails() {
                   123
                 </h3>
 
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-(--text-secondary)">
                   2 days ago
                 </span>
               </div>
 
-              <p className="text-gray-600 mt-1">
+              <p className="text-(--text-primary) mt-1">
                 Saving this for sure.
               </p>
             </div>
@@ -109,10 +109,10 @@ export default function NoteDetails() {
           <input
             type="text"
             placeholder="Write a comment..."
-            className="flex-1 border rounded-lg px-4 py-3 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="flex-1 border border-(--border) rounded-lg px-4 py-3 bg-(--surface) text-(--text-primary) focus:outline-none focus:ring-1 focus:ring-(--primary)"
           />
 
-          <button className="bg-[#4338ca] text-white px-5 rounded-lg hover:opacity-80 transition cursor-pointer">
+          <button className="bg-(--primary) text-(--on-primary) px-5 rounded-lg hover:bg-(--primary-hover) hover:opacity-80 transition cursor-pointer">
             <BiSend size={18} />
           </button>
         </div>

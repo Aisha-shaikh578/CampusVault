@@ -113,20 +113,20 @@ export default function SignupPage() {
   };
 
   return (
-    <main className='min-h-screen bg-neutral-50 flex items-center justify-center px-4 py-10'>
+    <main className='min-h-screen bg-(--background) flex items-center justify-center px-4 py-10'>
       <div className="w-full max-w-md">
-        <section className="relative overflow-hidden rounded-4xl border border-neutral-200 bg-white shadow-lg p-8">
+        <section className="relative overflow-hidden rounded-4xl border border-(--border) bg-(--surface) shadow-lg p-8">
           {/* Decorative Circles Top */}
-          <div className="absolute -top-20 -right-20 h-52 w-52 rounded-full border-6 border-neutral-100" />
-          <div className="absolute top-8 -right-24 h-60 w-60 rounded-full border-6 border-neutral-100" />
+          <div className="absolute -top-20 -right-20 h-52 w-52 rounded-full border-6 border-(--border)" />
+          <div className="absolute top-8 -right-24 h-60 w-60 rounded-full border-6 border-(--border)" />
 
           <div className='relative z-10'>
             {/* Title */}
-            <h2 className="text-5xl font-bold text-neutral-900">
+            <h2 className="text-5xl font-bold text-(--text-primary)">
               Sign Up
             </h2>
 
-            <p className="mt-2 xl:mt-3 text-sm text-neutral-500">
+            <p className="mt-2 xl:mt-3 text-sm text-(--text-secondary)">
               Create an account to continue
             </p>
 
@@ -138,7 +138,7 @@ export default function SignupPage() {
                   placeholder="Email"
                   value={email}
                   onChange={handleEmail}
-                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-neutral-900'}`}
+                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.email ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                 />
                 {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
               </div>
@@ -149,7 +149,7 @@ export default function SignupPage() {
                   placeholder="Password"
                   value={password}
                   onChange={handlePassword}
-                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.password ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-neutral-900'}`}
+                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.password ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                 />
                 {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
               </div>
@@ -160,7 +160,7 @@ export default function SignupPage() {
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={handleConfirmPassword}
-                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.confirmPassword ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-neutral-900'}`}
+                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.confirmPassword ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                 />
                 {errors.confirmPassword && <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>}
               </div>
@@ -175,7 +175,7 @@ export default function SignupPage() {
                     className="h-4 w-4 cursor-pointer"
                   />
 
-                  <span>
+                  <span className="text-(--text-secondary)">
                     I agree with{" "}
                     <span className="underline font-medium cursor-pointer">
                       Terms & Services
@@ -194,12 +194,13 @@ export default function SignupPage() {
                     w-full
                     rounded-2xl
                     border
-                    border-neutral-300
-                    bg-white
+                    border-(--border)
+                    bg-(--surface)
+                    text-(--text-secondary)
                     py-4
                     text-lg
                     font-semibold
-                    hover:bg-neutral-100
+                    hover:bg-(--surface-variant)
                     transition
                     cursor-pointer
                     disabled:cursor-not-allowed
@@ -211,7 +212,7 @@ export default function SignupPage() {
                   {isLoading ? 'Creating Account...' : 'SIGN UP'}
                 </button>
 
-                <p className="mt-5 text-sm text-neutral-600">
+                <p className="mt-5 text-sm text-(--text-secondary)">
                   Already have an account?{" "}
                   <span className="font-semibold underline cursor-pointer">
                     <Link href='/login'>
@@ -223,7 +224,7 @@ export default function SignupPage() {
             </div>
           </div>
           {/* Decorative Circles Bottom*/}
-          <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full border-6 border-neutral-100" />
+          <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full border-6 border-(--border)" />
         </section>
       </div>
     </main>

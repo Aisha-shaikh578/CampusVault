@@ -31,23 +31,23 @@ export default function UploadItem({
         </div>
 
         <div>
-          <h3 className="font-medium">
+          <h3 className="font-medium text-(--text-primary)">
             {title}
           </h3>
 
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-(--text-secondary)">
             {category} • {uploadedAt}
           </p>
         </div>
       </div>
 
       {/* Right Side */}
-      <div className="flex items-center gap-4 text-black">
-        <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium">
+      <div className="flex items-center gap-4 text-(--text-primary)">
+        <span className="rounded-full bg-(--surface-variant) px-3 py-1 text-xs font-medium">
           {type.toUpperCase()}
         </span>
 
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
+        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-(--surface-variant)">
           <FiUser size={16} />
         </div>
       </div>

@@ -50,7 +50,7 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="flex h-screen flex-col justify-between border-r px-2 py-4 lg:w-55 w-20">
+    <aside className="flex h-screen flex-col justify-between border-r border-(--border) px-2 py-4 lg:w-55 w-20">
       <div>
         {/* Logo */}
         <div className="mb-4 flex items-center justify-center gap-1.5 px-1">
@@ -74,7 +74,7 @@ export default function Sidebar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="flex items-center justify-center lg:justify-start gap-3 rounded-lg p-3 hover:text-white hover:bg-[#4338ca] transition"
+                className="flex items-center justify-center lg:justify-start gap-3 rounded-lg p-3 text-(--text-primary) hover:text-(--on-primary) hover:bg-(--primary) transition"
               >
                 <Icon size={22} />
 
@@ -95,7 +95,6 @@ export default function Sidebar() {
       onClick={handleLogOut}
       >
         <FiLogOut size={24} />
-
         <span className="text-sm">Logout</span>
       </button> :
       null

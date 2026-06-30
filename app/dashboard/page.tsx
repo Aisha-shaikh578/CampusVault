@@ -11,20 +11,17 @@ import {
   FiBookmark,
 } from "react-icons/fi";
 import SignupPage from '../signup/page';
-import { ThemeContext } from "@/context/themeContext";
-import { useContext } from 'react';
 import Link from 'next/link';
 
 export default function DashboardPage() {
   const { user } = UseAuth();
-  const { theme } = useContext(ThemeContext);
   const userName = user?.email?.split('@')[0];
 
   return (
     <>
     {
      user ?
-    <div className={`flex ${theme === 'light'? 'light': 'dark'}`}>
+    <div className='flex'>
       {/* Sidebar */}
       <Sidebar />
       
@@ -40,7 +37,7 @@ export default function DashboardPage() {
      
              <Link href='/upload'>
               <button 
-               className='bg-[#4338ca] text-white px-4 py-2 rounded flex gap-2 items-center cursor-pointer hover:opacity-50'>
+               className='bg-(--primary) text-(--on-primary) px-4 py-2 rounded flex gap-2 items-center cursor-pointer hover:bg-(--primary-hover)'>
                 Upload
                 <span>{<FiUpload />}</span>
               </button>
@@ -54,7 +51,7 @@ export default function DashboardPage() {
                 value={128}
                 icon={<FiFileText />}
                 iconColor="text-yellow-700"
-                bgColor="bg-yellow-50"
+                bgColor="bg-yellow-100"
               />
 
               <StatsCard
@@ -62,7 +59,7 @@ export default function DashboardPage() {
                 value={43}
                 icon={<FiUpload />}
                 iconColor="text-sky-700"
-                bgColor="bg-sky-50"
+                bgColor="bg-sky-100"
               />
 
               <StatsCard
@@ -70,7 +67,7 @@ export default function DashboardPage() {
                 value={12}
                 icon={<FiBookmark />}
                 iconColor="text-green-700"
-                bgColor="bg-green-50"
+                bgColor="bg-green-100"
               />
             </div>
 

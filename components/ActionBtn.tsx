@@ -12,8 +12,8 @@ export default function ActionBtn({icon, type, selected, onClick}:ActionBtnProps
    <button
     type="button"
     onClick={onClick}
-    className={`${selected ? 'border-2 border-blue-500 bg-blue-50 transition cursor-pointer flex items-center justify-center gap-3 p-4 rounded-2xl' : 
-      'flex items-center justify-center gap-3 border border-gray-300 rounded-2xl p-4 hover:border-blue-500 hover:bg-blue-50 transition cursor-pointer'}`}
+    className={`${selected ? 'border-2 border-(--primary) bg-(--surface-variant) transition cursor-pointer flex items-center justify-center gap-3 p-4 rounded-2xl' : 
+      'flex items-center justify-center gap-3 border border-(--border) rounded-2xl p-4 hover:border-(--primary) hover:bg-(--surface-variant) transition cursor-pointer'}`}
     >
     {icon}
     <span className="font-medium">

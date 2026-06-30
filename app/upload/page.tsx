@@ -117,21 +117,21 @@ export default function UploadPage() {
   return (
     <div className="w-full p-8">
       <div className="max-w-5xl mx-auto">
-        <div className="bg-white border border-gray-200 rounded-3xl p-8 shadow-sm">
+        <div className="bg-(--surface) border border-(--border) rounded-3xl p-8 shadow-sm">
           {/* Heading */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-3xl font-bold text-(--text-primary)">
               Upload Resource
             </h1>
 
-            <p className="mt-2 text-gray-500">
+            <p className="mt-2 text-(--text-secondary)">
               Share useful resources with your friends and classmates.
             </p>
           </div>
 
           {/* Upload Area */}
           <div 
-          className="border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center hover:border-blue-500 transition-all"
+          className="border-2 border-dashed border-(--border) rounded-2xl p-12 text-center hover:border-(--primary) transition-all"
           {...getRootProps()}> 
           {
           selectedFile === null ?
@@ -139,16 +139,16 @@ export default function UploadPage() {
             <input type="file" {...getInputProps()}/>
             <FiUploadCloud
               size={60}
-              className="mx-auto text-blue-600"
+              className="mx-auto text-(--primary)"
             />
 
-            <h3 className="mt-4 text-xl font-semibold text-gray-800">
+            <h3 className="mt-4 text-xl font-semibold text-(--text-primary)">
               Drag and drop your file here
             </h3>
 
-            <p className="mt-2 text-gray-500">or</p>
+            <p className="mt-2 text-(--text-secondary)">or</p>
 
-            <button className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition cursor-pointer">
+            <button className="mt-4 px-6 py-3 bg-(--primary) text-(--on-primary) rounded-xl font-medium hover:bg-(--primary-hover) transition cursor-pointer">
               Select Files
             </button>
             </div> 
@@ -164,27 +164,27 @@ export default function UploadPage() {
             </div>
             }
             {error && (
-            <p className="mt-5 text-sm text-red-600">{error}</p>
+            <p className="mt-5 text-sm text-(--danger)">{error}</p>
             )}
           </div>
 
           {/* Resource Details */}
           <div className="mt-10">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+            <h2 className="text-2xl font-semibold text-(--text-primary) mb-6">
               Resource Details
             </h2>
 
             <div className="space-y-6">
               {/* Title */}
               <div>
-                <label className="block mb-2 font-medium text-gray-700">
+                <label className="block mb-2 font-medium text-(--text-primary)">
                   Title *
                 </label>
 
                 <input
                   type="text"
                   placeholder="Enter resource title"
-                  className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full border border-(--border) rounded-xl px-4 py-3 outline-none text-(--text-primary) bg-(--surface) focus:ring-1 focus:ring-(--primary)"
                   value={title || ''}
                   onChange={(e) => setTitle(e.target.value)}
                 />
@@ -192,11 +192,11 @@ export default function UploadPage() {
 
               {/* Category */}
               <div>
-                <label className="block mb-2 font-medium text-gray-700">
+                <label className="block mb-2 font-medium text-(--text-primary)">
                   Subject / Category
                 </label>
 
-                <select className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-1 focus:ring-blue-500 cursor-pointer"
+                <select className="w-full border border-(--border) rounded-xl px-4 py-3 outline-none text-(--text-primary) bg-(--surface) focus:ring-1 focus:ring-(--primary) cursor-pointer"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 >
@@ -212,7 +212,7 @@ export default function UploadPage() {
 
               {/* Resource Type */}
               <div>
-                <label className="block mb-3 font-medium text-gray-700">
+                <label className="block mb-3 font-medium text-(--text-primary)">
                   Resource Type *
                 </label>
 
@@ -241,13 +241,13 @@ export default function UploadPage() {
             {/* Footer Buttons */}
             <div className="flex justify-end gap-4 mt-10">
               <Link href='/dashboard'>
-              <button className="px-4 py-2 border border-gray-300 rounded-xl hover:bg-gray-50 transition cursor-pointer">
+              <button className="px-4 py-2 border border-(--border) rounded-xl hover:bg-(--surface-variant) transition cursor-pointer">
                 Cancel
               </button>
               </Link>
 
               <button 
-              className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-(--primary) text-(--on-primary) rounded-xl cursor-pointer hover:bg-(--primary-hover) hover:text-(--on-primary) transition disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={handleUpload}
               disabled={isUploading}>
                 {isUploading ? 'Uploading...' : 'Upload'}

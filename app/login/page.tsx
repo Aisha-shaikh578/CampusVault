@@ -92,23 +92,23 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-neutral-50 flex items-center justify-center px-4 py-10">
+    <main className="min-h-screen bg-(--background) flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-md">
         {/* Card */}
-        <section className="relative overflow-hidden rounded-4xl border border-neutral-200 bg-white shadow-lg p-8">
+        <section className="relative overflow-hidden rounded-4xl border border-(--border) bg-(--surface) shadow-lg p-8">
           {/* Top Decorative Circles */}
-          <div className="absolute -top-20 -right-20 h-52 w-52 rounded-full border-7 border-neutral-100" />
-          <div className="absolute top-8 -right-24 h-60 w-60 rounded-full border-7 border-neutral-100" />
+          <div className="absolute -top-20 -right-20 h-52 w-52 rounded-full border-7 border-(--border)" />
+          <div className="absolute top-8 -right-24 h-60 w-60 rounded-full border-7 border-(--border)" />
 
           <div className="relative z-10">
             {/* Welcome Text */}
-            <h2 className="text-5xl font-bold text-neutral-900 leading-tight">
+            <h2 className="text-5xl font-bold text-(--text-primary) leading-tight">
               Welcome
               <br />
               Back
             </h2>
 
-            <p className="mt-3 text-sm text-neutral-500">
+            <p className="mt-3 text-sm text-(--text-secondary)">
               Hey! Good to see you again.
             </p>
 
@@ -118,29 +118,29 @@ export default function LoginPage() {
                 <input
                   type="email"
                   placeholder="Email"
-                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-neutral-900'}`}
+                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.email ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                   value={email}
                   onChange={handleEmail}
                 />
-                {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+                {errors.email && <p className="mt-1 text-sm text-(--danger)">{errors.email}</p>}
               </div>
 
               <div>
                 <input
                   type="password"
                   placeholder="Password"
-                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.password ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-neutral-900'}`}
+                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.password ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                   value={password}
                   onChange={handlePassword}
                 />
-                {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
+                {errors.password && <p className="mt-1 text-sm text-(--danger)">{errors.password}</p>}
               </div>
             </div>
 
             {/* Forgot Password */}
             <div className="mt-3 text-right">
               <button
-                className="text-sm text-neutral-500 hover:text-neutral-900 cursor-pointer transition"
+                className="text-sm text-(--text-secondary) hover:text-(--text-primary) cursor-pointer transition"
               >
                 Forgot Password?
               </button>
@@ -152,8 +152,9 @@ export default function LoginPage() {
                   className="
                     w-full
                     rounded-2xl
-                    bg-black
-                    text-white
+                    bg-(--surface)
+                    text-(--text-secondary)
+                    hover:bg-(--surface-variant)
                     py-4
                     text-lg
                     font-semibold
@@ -162,6 +163,8 @@ export default function LoginPage() {
                     transition
                     disabled:cursor-not-allowed
                     disabled:opacity-70
+                    border
+                    border-(--border)
                   "
                   onClick={handleLogIn}
                   disabled={isLoading}
@@ -169,7 +172,7 @@ export default function LoginPage() {
                   {isLoading ? 'Logging in...' : 'LOGIN'}
                 </button>
 
-                <p className="mt-5 text-sm text-neutral-600">
+                <p className="mt-5 text-sm text-(--text-secondary)">
                   Don&apos;t have an account?{" "}
                   <span className="font-semibold underline cursor-pointer">
                     <Link href='/signup'>
@@ -182,7 +185,7 @@ export default function LoginPage() {
           </div>
 
           {/* Bottom Decorative Circles */}
-          <div className="absolute -bottom-10 -left-24 h-60 w-60 rounded-full border-7 border-neutral-100" />
+          <div className="absolute -bottom-10 -left-24 h-60 w-60 rounded-full border-7 border-(--border)" />
         </section>
       </div>
     </main>

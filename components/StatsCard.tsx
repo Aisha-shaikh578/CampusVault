@@ -17,7 +17,7 @@ export default function StatsCard({
 }: StatsCardProps) {
   return (
     <div
-      className={`rounded-xl p-5 shadow-sm border max-w-50 ${bgColor}`}
+      className={`rounded-xl p-5 shadow-sm border border-(--border) max-w-50 ${bgColor}`}
     >
       <div className={`mb-4 text-2xl ${iconColor}`}>
         {icon}
