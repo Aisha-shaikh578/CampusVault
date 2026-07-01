@@ -9,7 +9,7 @@ type UploadItemProps = {
   title: string;
   category: string;
   uploadedAt: string;
-  type: "pdf" | "link";
+  type: "PDF" | "Link" | "Doc";
 };
 
 export default function UploadItem({
@@ -23,10 +23,10 @@ export default function UploadItem({
       {/* Left Side */}
       <div className="flex items-center gap-4">
         <div>
-          {type === "pdf" ? (
-            <FiFileText size={22} />
-          ) : (
+          {type === "Link" ? (
             <FiLink size={22} />
+          ) : (
+            <FiFileText size={22} />
           )}
         </div>
 

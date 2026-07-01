@@ -5,6 +5,7 @@ import { auth, db } from "@/lib/firebase";
 import { supabase } from "@/lib/supabase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { useDropzone, FileRejection } from "react-dropzone";
 import { toast } from "react-hot-toast";
@@ -22,7 +23,7 @@ export default function UploadPage() {
   const [title, setTitle] = useState<string | null>(null);
   const [category, setCategory] = useState('Computer Science');
   const [isUploading, setIsUploading] = useState<boolean>(false);
-  const [resourceType, setResourceType] = useState<'PDF' | 'Link' | 'Document'>('PDF')
+  const [resourceType, setResourceType] = useState<'PDF' | 'Link' | 'Doc'>('PDF')
   const MAX_SIZE = 5 * 1024 * 1024;   // 5MB
   const user = auth.currentUser;
   
@@ -85,11 +86,7 @@ export default function UploadPage() {
       toast.error(`Upload failed: ${message}`);
     } finally {
       setIsUploading(false);
-      setCategory('Computer Science');
-      setResourceType('PDF');
-      setSelectedFile(null);
-      setTitle(null);
-      setError(null);
+      redirect('/dashboard');
     }
   }
 
@@ -254,9 +251,9 @@ export default function UploadPage() {
 
                   <ActionBtn 
                   icon={<FiFolder size={22} color="orange"/>} 
-                  type='Document'
-                  selected={resourceType === 'Document'}
-                  onClick={() => setResourceType('Document')}/>
+                  type='Doc'
+                  selected={resourceType === 'Doc'}
+                  onClick={() => setResourceType('Doc')}/>
                 </div>
               </div>
             </div>

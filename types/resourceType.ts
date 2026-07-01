@@ -4,7 +4,7 @@ export interface Resource {
   id: string,
   title: string,
   category: string,
-  resourceType: string,
+  resourceType: 'PDF' | 'Link' | 'Doc',
   fileUrl: string,
   uploadedAt: Timestamp,
   uploadedBy: UploadedBy

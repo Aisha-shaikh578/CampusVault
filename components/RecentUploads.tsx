@@ -1,6 +1,20 @@
+import { useEffect, useState } from "react";
 import UploadItem from "./UploadItem";
+import { Resource } from "@/types/resourceType";
+import { formatDistanceToNow } from "date-fns";
+import { fetchResources } from "@/services/resourceService";
 
 export default function RecentUploads() {
+  const [recentUploads, setRecentUploads] = useState<Resource[]>([]);
+
+   useEffect(() => {
+      async function loadResources() {
+        const fetchedResources = await fetchResources();
+        setRecentUploads(fetchedResources);
+      }
+      loadResources();
+    }, [])
+
   return (
     <>
     <h2 className="text-xl font-semibold mt-12">
@@ -8,27 +22,15 @@ export default function RecentUploads() {
     </h2>
     <div className="rounded-xl border p-4 shadow-md mt-5">
       <div className="divide-y">
-        <UploadItem
-          title="DSA Notes.pdf"
-          category="Computer Science"
-          uploadedAt="2 days ago"
-          type="pdf"
+        {recentUploads.map((uploadedResource) => (
+          <UploadItem key={uploadedResource.id}
+          title={uploadedResource.title}
+          category={uploadedResource.category}
+          uploadedAt={formatDistanceToNow(uploadedResource.uploadedAt.toDate())}
+          type={uploadedResource.resourceType}
         />
-
-        <UploadItem
-          title="Operating System.pdf"
-          category="Computer Science"
-          uploadedAt="15 minutes ago"
-          type="pdf"
-        />
-
-        <UploadItem
-          title="Roadmap.link"
-          category="Development"
-          uploadedAt="1 hour ago"
-          type="link"
-        />
-      </div>
+        ))}
+      </div> 
     </div>
     </>
   );
