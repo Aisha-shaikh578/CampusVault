@@ -12,10 +12,24 @@ import {
 } from "react-icons/fi";
 import SignupPage from '../signup/page';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { Resource } from '@/types/resourceType';
+import { fetchResources } from '@/services/resourceService';
 
 export default function DashboardPage() {
   const { user } = UseAuth();
   const userName = user?.email?.split('@')[0];
+  const [resources, setResources] = useState<Resource[]>([]);
+
+  useEffect(() => {
+    async function loadResources() {
+      const fetchedResources = await fetchResources();
+      setResources(fetchedResources);
+    }
+    loadResources();
+  }, [])
+
+  const usersUploadedResource = resources.filter((resource) => resource.uploadedBy?.uid === user?.uid);
 
   return (
     <>
@@ -48,7 +62,7 @@ export default function DashboardPage() {
             <div className="grid gap-5 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
               <StatsCard
                 title="Total Resources"
-                value={128}
+                value={resources.length}
                 icon={<FiFileText />}
                 iconColor="text-yellow-700"
                 bgColor="bg-yellow-100"
@@ -56,7 +70,7 @@ export default function DashboardPage() {
 
               <StatsCard
                 title="My Uploads"
-                value={43}
+                value={usersUploadedResource.length}
                 icon={<FiUpload />}
                 iconColor="text-sky-700"
                 bgColor="bg-sky-100"
