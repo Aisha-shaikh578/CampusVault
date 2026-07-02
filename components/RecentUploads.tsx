@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import UploadItem from "./UploadItem";
 import { Resource } from "@/types/resourceType";
 import { formatDistanceToNow } from "date-fns";
-import { fetchResources } from "@/services/resourceService";
+import { fetchRecentResources } from "@/services/resourceService";
 
 export default function RecentUploads() {
   const [recentUploads, setRecentUploads] = useState<Resource[]>([]);
 
    useEffect(() => {
       async function loadResources() {
-        const fetchedResources = await fetchResources();
+        const fetchedResources = await fetchRecentResources();
         setRecentUploads(fetchedResources);
       }
       loadResources();
