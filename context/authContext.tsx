@@ -4,21 +4,21 @@ import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 
-interface AuthContext {
+interface AuthContextType {
   user: User | null;
 }
 
-const AuthContext = createContext<AuthContext | null>(null);
+const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({children}: {children: React.ReactNode}) => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const stopAuthListener = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
-    return () => unsubscribe();
-  }, [])
+    return () => stopAuthListener();
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user }}>
@@ -27,7 +27,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
   )
 }
 
-export const UseAuth = () => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
 
   if(!context) {

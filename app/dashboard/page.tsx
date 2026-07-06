@@ -4,7 +4,7 @@ import Header from '@/components/Header'
 import RecentUploads from '@/components/RecentUploads';
 import Sidebar from '@/components/Sidebar'
 import StatsCard from "@/components/StatsCard";
-import { UseAuth } from '@/context/authContext';
+import { useAuth } from '@/context/authContext';
 import {
   FiFileText,
   FiUpload,
@@ -17,7 +17,7 @@ import { Resource } from '@/types/resourceType';
 import { fetchResources } from '@/services/resourceService';
 
 export default function DashboardPage() {
-  const { user } = UseAuth();
+  const { user } = useAuth();
   const userName = user?.email?.split('@')[0];
   const [resources, setResources] = useState<Resource[]>([]);
 

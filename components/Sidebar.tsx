@@ -9,7 +9,7 @@ import {
   FiLogOut,
 } from "react-icons/fi";
 
-import { UseAuth } from "@/context/authContext";
+import { useAuth } from "@/context/authContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import Image from "next/image";
@@ -39,7 +39,7 @@ const menuItems = [
 
 export default function Sidebar() {
 
-  const { user } = UseAuth();
+  const { user } = useAuth();
 
   const handleLogOut = async() => {
     try {
