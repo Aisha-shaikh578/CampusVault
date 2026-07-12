@@ -1,11 +1,19 @@
 import Button from "@/components/Button";
+import { fetchResourceById } from "@/services/resourceService";
 import Link from "next/link";
 import { BiDownload, BiSend, BiShare } from "react-icons/bi";
 import { BsArrowLeft } from "react-icons/bs";
 import { FiFileText } from "react-icons/fi";
 import { RiBookMarkedFill } from "react-icons/ri";
+import { formatDistanceToNow } from "date-fns";
 
-export default function NoteDetails() {
+export default async function Details({ params }: {
+  params: 
+    Promise<{resourceId: string}>;
+}) {
+  const {resourceId} = await params;
+  const resource = await fetchResourceById(resourceId);
+
   return (
   <>
     <div className="flex-1 p-6 overflow-y-auto">
@@ -26,15 +34,15 @@ export default function NoteDetails() {
 
           <div>
             <h1 className="text-2xl font-bold">
-              DSA Notes.pdf
+              {resource?.title}
             </h1>
 
             <p className="text-(--text-secondary) mt-1">
-              Computer Science • 2 days ago
+              {resource?.category} • {`${formatDistanceToNow(resource?.uploadedAt.toDate())} ago`}
             </p>
 
             <p className="text-sm text-(--text-secondary) mt-1">
-              Uploaded by Aisha
+              Uploaded by {resource?.uploadedBy.name}
             </p>
           </div>
         </div>
