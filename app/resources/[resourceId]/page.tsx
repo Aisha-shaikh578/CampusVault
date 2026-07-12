@@ -8,7 +8,6 @@ import { RiBookMarkedFill } from "react-icons/ri";
 export default function NoteDetails() {
   return (
   <>
-    {/* Sidebar */}
     <div className="flex-1 p-6 overflow-y-auto">
       {/* Back Button */}
     <Link href='/dashboard'>

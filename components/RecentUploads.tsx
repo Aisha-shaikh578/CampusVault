@@ -24,6 +24,7 @@ export default function RecentUploads() {
       <div className="divide-y">
         {recentUploads.map((uploadedResource) => (
           <UploadItem key={uploadedResource.id}
+          id={uploadedResource.id}
           title={uploadedResource.title}
           category={uploadedResource.category}
           uploadedAt={formatDistanceToNow(uploadedResource.uploadedAt.toDate())}

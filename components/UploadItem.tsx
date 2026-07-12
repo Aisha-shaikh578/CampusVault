@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import {
   FiFileText,
@@ -6,6 +7,7 @@ import {
 } from "react-icons/fi";
 
 type UploadItemProps = {
+  id: string;
   title: string;
   category: string;
   uploadedAt: string;
@@ -13,12 +15,14 @@ type UploadItemProps = {
 };
 
 export default function UploadItem({
+  id,
   title,
   category,
   uploadedAt,
   type,
 }: UploadItemProps) {
   return (
+    <Link href={`/resources/${id}`}>
     <div className="flex flex-col gap-3 sm:flex-row items-center justify-between py-4 cursor-pointer">
       {/* Left Side */}
       <div className="flex items-center gap-4">
@@ -52,5 +56,6 @@ export default function UploadItem({
         </div>
       </div>
     </div>
+    </Link>
   );
 }
