@@ -1,6 +1,6 @@
 import { db } from "@/lib/firebase";
 import { Resource } from "@/types/resourceType";
-import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, limit, orderBy, query } from "firebase/firestore";
 
 export async function fetchResources(): Promise<Resource[]> {
   const resourceCollection = collection(db, 'resources'); 
@@ -25,4 +25,15 @@ export async function fetchRecentResources(): Promise<Resource[]> {
     ...resourceDoc.data(),
   })) as Resource[];
   return uploadedResources;
+}
+
+
+export async function fetchResourceById(resourceId: string): Promise<Resource | null> {
+  const resourceDoc = doc(db, 'resources', resourceId);
+  const resourceSnapshot = await getDoc(resourceDoc);
+  if(!resourceSnapshot.exists()) {return null};
+  return {
+    id: resourceSnapshot.id,
+    ...resourceSnapshot.data()
+  } as Resource
 }
