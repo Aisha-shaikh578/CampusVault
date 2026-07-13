@@ -1,11 +1,10 @@
-import Button from "@/components/Button";
 import { fetchResourceById } from "@/services/resourceService";
 import Link from "next/link";
-import { BiDownload, BiSend, BiShare } from "react-icons/bi";
+import { BiSend } from "react-icons/bi";
 import { BsArrowLeft } from "react-icons/bs";
 import { FiFileText } from "react-icons/fi";
-import { RiBookMarkedFill } from "react-icons/ri";
 import { formatDistanceToNow } from "date-fns";
+import ResourceActions from "@/components/ResourceActions";
 
 export default async function Details({ params }: {
   params: 
@@ -25,7 +24,7 @@ export default async function Details({ params }: {
       </button>
     </Link>
 
-      {/* Document Info */}
+      {/* Resource Details */}
       <div className="mt-6 bg-(--surface) rounded-xl border border-(--border) p-5 shadow-sm">
         <div className="flex items-start gap-4">
           <div className="p-3">
@@ -48,20 +47,8 @@ export default async function Details({ params }: {
         </div>
       </div>
 
-      {/* Actions */}
-      <div className="mt-6">
-        <h2 className="font-semibold text-lg mb-3">
-          Actions
-        </h2>
-
-        <div className="flex flex-wrap gap-4">
-          <Button text="Download" icon={<BiDownload size={18}/>}/>
-
-          <Button text="Share" icon={<BiShare size={18}/>}/>
-
-          <Button text="Bookmark" icon={<RiBookMarkedFill size={18}/>}/>
-        </div>
-      </div>
+      {/* Action Buttons */}
+     <ResourceActions />
 
       {/* Comments */}
       <div className="mt-10">
