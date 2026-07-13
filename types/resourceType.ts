@@ -15,3 +15,7 @@ export interface UploadedBy {
   name: string,
   email: string
 }
+
+export interface ResourceActionProps {
+  resourceId: string
+}

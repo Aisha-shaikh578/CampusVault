@@ -48,7 +48,7 @@ export default async function Details({ params }: {
       </div>
 
       {/* Action Buttons */}
-     <ResourceActions />
+     <ResourceActions resourceId={resourceId}/>
 
       {/* Comments */}
       <div className="mt-10">
