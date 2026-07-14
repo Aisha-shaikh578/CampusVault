@@ -15,11 +15,13 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Resource } from '@/types/resourceType';
 import { fetchResources } from '@/services/resourceService';
+import { countBookmarks } from '@/services/bookmarkService';
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const userName = user?.email?.split('@')[0];
   const [resources, setResources] = useState<Resource[]>([]);
+  const [bookmarked, setBookmarked] = useState(0);
 
   useEffect(() => {
     async function loadResources() {
@@ -29,6 +31,16 @@ export default function DashboardPage() {
     loadResources();
   }, [])
 
+  useEffect(() => {
+    if(!user) return;
+
+    async function getBookmarksCnt() {
+      const count = await countBookmarks(user.uid);
+      setBookmarked(count);
+    }
+    getBookmarksCnt();
+  }, [user]);
+ 
   const usersUploadedResource = resources.filter((resource) => resource.uploadedBy?.uid === user?.uid);
 
   return (
@@ -78,7 +90,7 @@ export default function DashboardPage() {
 
               <StatsCard
                 title="Bookmarks"
-                value={12}
+                value={bookmarked}
                 icon={<FiBookmark />}
                 iconColor="text-green-700"
                 bgColor="bg-green-100"

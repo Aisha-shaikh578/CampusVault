@@ -20,8 +20,8 @@ export async function isBookmarked(uid: string, resourceId: string): Promise<boo
 }
 
 
-export async function countBookmarks(uid: string, resourceId: string): Promise<number> {
-  const bookmarkRef = collection(db, 'users', uid, 'bookmarks', resourceId);
+export async function countBookmarks(uid: string): Promise<number> {
+  const bookmarkRef = collection(db, 'users', uid, 'bookmarks');
   const snapshot = await getDocs(bookmarkRef);
   return snapshot.size
 }
