@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 
 export async function addBookmark(uid: string, resourceId: string): Promise<void> {
   const bookmarkRef = doc(db, 'users', uid, 'bookmarks', resourceId);
@@ -17,4 +17,11 @@ export async function isBookmarked(uid: string, resourceId: string): Promise<boo
   const bookmarkRef = doc(db, 'users', uid, 'bookmarks', resourceId);
   const bookmarkSnapshot = await getDoc(bookmarkRef);
   return bookmarkSnapshot.exists();
+}
+
+
+export async function countBookmarks(uid: string, resourceId: string): Promise<number> {
+  const bookmarkRef = collection(db, 'users', uid, 'bookmarks', resourceId);
+  const snapshot = await getDocs(bookmarkRef);
+  return snapshot.size
 }
