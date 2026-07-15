@@ -25,3 +25,24 @@ export async function countBookmarks(uid: string): Promise<number> {
   const snapshot = await getDocs(bookmarkRef);
   return snapshot.size
 }
+
+
+export async function getBookmarkedResources(uid: string) {
+  const bookmarkRef = collection(db, 'users', uid, 'bookmarks');
+  const bookmarkSnapshot = await getDocs(bookmarkRef);
+  const resources = [];
+
+  for(const bookmarkedDoc of bookmarkSnapshot.docs) {
+    const resourceId = bookmarkedDoc.id;
+    const resourceRef = doc(db, 'resources', resourceId);
+    const resourceSnapshot = await getDoc(resourceRef);
+
+    if(resourceSnapshot.exists()) {
+      resources.push({
+        id: resourceSnapshot.id,
+        ...resourceSnapshot.data(),
+      });
+    }
+  }
+  return resources;
+}
