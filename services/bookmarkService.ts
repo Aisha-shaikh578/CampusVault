@@ -1,4 +1,5 @@
 import { db } from "@/lib/firebase";
+import { Resource } from "@/types/resourceType";
 import { collection, deleteDoc, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 
 export async function addBookmark(uid: string, resourceId: string): Promise<void> {
@@ -27,10 +28,10 @@ export async function countBookmarks(uid: string): Promise<number> {
 }
 
 
-export async function getBookmarkedResources(uid: string) {
+export async function getBookmarkedResources(uid: string): Promise<Resource[]> {
   const bookmarkRef = collection(db, 'users', uid, 'bookmarks');
   const bookmarkSnapshot = await getDocs(bookmarkRef);
-  const resources = [];
+  const resources: Resource[] = [];
 
   for(const bookmarkedDoc of bookmarkSnapshot.docs) {
     const resourceId = bookmarkedDoc.id;
@@ -41,7 +42,7 @@ export async function getBookmarkedResources(uid: string) {
       resources.push({
         id: resourceSnapshot.id,
         ...resourceSnapshot.data(),
-      });
+      } as Resource);
     }
   }
   return resources;
