@@ -23,7 +23,7 @@ export default function UploadItem({
 }: UploadItemProps) {
   return (
     <Link href={`/resources/${id}`}>
-    <div className="flex flex-col gap-3 sm:flex-row items-center justify-between py-4 cursor-pointer">
+    <div className="flex flex-col gap-3 sm:flex-row items-center justify-between py-3 border-b-2 border-(--border) cursor-pointer">
       {/* Left Side */}
       <div className="flex items-center gap-4">
         <div>
