@@ -5,13 +5,20 @@ import { MdLightMode } from "react-icons/md";
 import { BsMoon } from "react-icons/bs";
 import { useContext } from "react";
 import { ThemeContext } from "@/context/themeContext";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const pathname = usePathname();
 
   return (
     <header className="flex items-center justify-between gap-4 border-b border-(--border) px-4 py-3">
+
       {/* Search Bar */}
+      <div className="flex-1">
+      { 
+      pathname === '/dashboard/uploadedResources'
+        && 
       <div className="relative flex-1 max-w-xl">
         <FiSearch
           size={18}
@@ -23,6 +30,8 @@ export default function Header() {
           placeholder="Search resources..."
           className="w-full rounded-lg border border-(--border) bg-(--surface) py-2 pl-10 pr-4 outline-none text-(--text-primary) placeholder:text-(--placeholder) focus:ring-1 focus:ring-(--primary)"
         />
+      </div>
+      }
       </div>
 
       {/* Right Section */}
