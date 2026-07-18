@@ -21,9 +21,9 @@ const menuItems = [
     href: "/dashboard",
   },
   {
-    name: "My Resources",
+    name: "Resources",
     icon: FiFolder,
-    href: "/resources",
+    href: "/dashboard/uploadedResources",
   },
   {
     name: "Bookmarks",
