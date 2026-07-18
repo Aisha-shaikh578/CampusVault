@@ -28,7 +28,7 @@ const menuItems = [
   {
     name: "Bookmarks",
     icon: FiBookmark,
-    href: "/bookmarks",
+    href: "/dashboard/bookmarks",
   },
   {
     name: "Friends",

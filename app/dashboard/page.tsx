@@ -1,7 +1,7 @@
 "use client";
 
 import Header from '@/components/Header'
-import RecentUploads from '@/components/RecentUploads';
+import RecentUploads from '@/components/ResourceList';
 import Sidebar from '@/components/Sidebar'
 import StatsCard from "@/components/StatsCard";
 import { useAuth } from '@/context/authContext';
@@ -16,12 +16,14 @@ import { useEffect, useState } from 'react';
 import { Resource } from '@/types/resourceType';
 import { fetchResources } from '@/services/resourceService';
 import { countBookmarks } from '@/services/bookmarkService';
+import { fetchRecentResources } from "@/services/resourceService";
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const userName = user?.email?.split('@')[0];
   const [resources, setResources] = useState<Resource[]>([]);
   const [bookmarked, setBookmarked] = useState(0);
+  const [recentUploads, setRecentUploads] = useState<Resource[]>([]);
 
   useEffect(() => {
     async function loadResources() {
@@ -40,6 +42,16 @@ export default function DashboardPage() {
     }
     getBookmarksCnt();
   }, [user]);
+
+  
+  useEffect(() => {
+    async function loadResources() {
+      const fetchedRecentResources = await fetchRecentResources();
+      setRecentUploads(fetchedRecentResources);
+    }
+
+    loadResources();
+  }, [recentUploads]);
  
   const usersUploadedResource = resources.filter((resource) => resource.uploadedBy?.uid === user?.uid);
 
@@ -98,7 +110,11 @@ export default function DashboardPage() {
             </div>
 
           {/* Recent Uploads Section */}
-            <RecentUploads />
+            <RecentUploads 
+              title="Recent Uploads"
+              resources={recentUploads}
+              emptyMessage="No resources available yet."
+            />
         </main>
       </div>
     </div>
