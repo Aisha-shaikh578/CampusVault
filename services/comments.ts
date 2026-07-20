@@ -1,19 +1,21 @@
 import { db } from "@/lib/firebase";
+import { CommentTypes } from "@/types/resourceType";
 import { User } from "firebase/auth";
 import { addDoc, collection, getDocs, orderBy, query, serverTimestamp } from "firebase/firestore";
 
 export async function addComment(resourceId: string, text: string, user: User) {
+  const userName = user?.email?.split('@')[0];
   const commentsRef = collection(db, 'resources', resourceId, 'comments');
   const commentedDocRef = await addDoc(commentsRef, {
     text,
     userUid: user.uid,
-    username: user.displayName,
+    username: userName,
     createdAt: serverTimestamp()
   })
 }
 
 
-export async function getComments(resourceId: string, text: string, user: User) {
+export async function getComments(resourceId: string) {
   const commentsRef = collection(db, 'resources', resourceId, 'comments');
   const q = query(commentsRef,
     orderBy('createdAt', 'desc')
@@ -22,6 +24,6 @@ export async function getComments(resourceId: string, text: string, user: User) 
   const comments = commentsSnapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data()
-  }));
+  } as CommentTypes));
   return comments;
 }
