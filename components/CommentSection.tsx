@@ -6,12 +6,10 @@ import { CommentTypes } from "@/types/resourceType";
 import { addComment, getComments } from "@/services/comments";
 import { useAuth } from "@/context/authContext";
 import { formatDistanceToNow } from "date-fns";
+import { CommentSectionProps } from "@/types/commentTypes";
  
-interface CommentSectionProps{
-  resourceId: string
-}
 
- export default function CommentSection({resourceId} :CommentSectionProps) {
+ export default function CommentSection({resourceId}: CommentSectionProps) {
   const { user } = useAuth();
   const [inputComment, setInputComment] = useState('');
   const [comments, setComments] = useState<CommentTypes[]>([]);
