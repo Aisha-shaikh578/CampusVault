@@ -1,5 +1,5 @@
 import { db } from "@/lib/firebase";
-import { CommentTypes } from "@/types/resourceType";
+import { CommentTypes } from "@/types/commentTypes";
 import { User } from "firebase/auth";
 import { addDoc, collection, getDocs, orderBy, query, serverTimestamp } from "firebase/firestore";
 

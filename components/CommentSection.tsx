@@ -2,7 +2,7 @@
 
 import { BiSend } from "react-icons/bi";
 import React, { useEffect, useState } from 'react'
-import { CommentTypes } from "@/types/resourceType";
+import { CommentTypes } from "@/types/commentTypes";
 import { addComment, getComments } from "@/services/comments";
 import { useAuth } from "@/context/authContext";
 import { formatDistanceToNow } from "date-fns";
