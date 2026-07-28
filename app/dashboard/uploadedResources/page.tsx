@@ -9,10 +9,11 @@ import { fetchResources } from '@/services/resourceService';
 import { Resource } from '@/types/resourceType';
 import { redirect } from 'next/navigation';
 
-export default function BookmarksPage() {
+export default function ResourcesPage() {
   const { user } = useAuth();
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
     if (!user) {
@@ -36,12 +37,25 @@ export default function BookmarksPage() {
     redirect('/signup')
   }
 
+  const searchQuery = searchTerm.trim().toLowerCase();
+  const filteredResources = resources.filter((resource) => {
+    if (!searchQuery) {
+      return true;
+    }
+
+    return resource.title.toLowerCase().includes(searchQuery);
+  });
+
+  const emptyMessage = resources.length === 0
+    ? 'There are no resources uploaded yet.'
+    : 'No resources found.';
+
   return (
     <div className="flex">
       <Sidebar />
 
       <div className="flex flex-1 flex-col">
-        <Header />
+        <Header searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
         <main className="flex-1 p-6">
           <div className="mb-6">
@@ -58,8 +72,8 @@ export default function BookmarksPage() {
           ) : (
             <ResourceList
               title="Uploaded Resources"
-              resources={resources}
-              emptyMessage="There are no resources uploaded yet."
+              resources={filteredResources}
+              emptyMessage={emptyMessage}
             />
           )}
         </main>

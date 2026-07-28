@@ -3,11 +3,16 @@
 import { FiSearch, FiUser } from "react-icons/fi";
 import { MdLightMode } from "react-icons/md";
 import { BsMoon } from "react-icons/bs";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ThemeContext } from "@/context/themeContext";
 import { usePathname } from "next/navigation";
 
-export default function Header() {
+type HeaderProps = {
+  searchTerm: string;
+  onSearchChange: (value: string) => void;
+};
+
+export default function Header({ searchTerm, onSearchChange }: HeaderProps) {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const pathname = usePathname();
 
@@ -26,6 +31,8 @@ export default function Header() {
         />
 
         <input
+          onChange={(e) => onSearchChange(e.target.value)}
+          value={searchTerm}
           type="text"
           placeholder="Search resources..."
           className="w-full rounded-lg border border-(--border) bg-(--surface) py-2 pl-10 pr-4 outline-none text-(--text-primary) placeholder:text-(--placeholder) focus:ring-1 focus:ring-(--primary)"
