@@ -41,7 +41,7 @@ export default function BookmarksPage() {
       <Sidebar />
 
       <div className="flex flex-1 flex-col">
-        <Header />
+        <Header searchTerm="" onSearchChange={() => undefined}/>
 
         <main className="flex-1 p-6">
           <div className="mb-6">

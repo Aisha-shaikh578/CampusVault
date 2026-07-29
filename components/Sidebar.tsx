@@ -7,6 +7,7 @@ import {
   FiBookmark,
   FiUser,
   FiLogOut,
+  FiSettings,
 } from "react-icons/fi";
 
 import { useAuth } from "@/context/authContext";
@@ -34,6 +35,11 @@ const menuItems = [
     name: "Friends",
     icon: FiUser,
     href: "/friends",
+  },
+  {
+    name: "Settings",
+    icon: FiSettings,
+    href: "/dashboard/settings",
   },
 ];
 
