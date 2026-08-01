@@ -14,6 +14,7 @@ import { useAuth } from "@/context/authContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import Image from "next/image";
+import logo from '../images/logo.png';
 
 const menuItems = [
   {
@@ -61,7 +62,7 @@ export default function Sidebar() {
         {/* Logo */}
         <div className="mb-4 flex items-center justify-center gap-1.5 px-1">
           <Image 
-            src='/favicon.ico'
+            src={logo}
             alt='Logo'
             width={50}
             height={50}/>
