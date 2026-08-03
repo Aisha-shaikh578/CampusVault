@@ -26,12 +26,14 @@ export default function DashboardPage() {
   const [recentUploads, setRecentUploads] = useState<Resource[]>([]);
 
   useEffect(() => {
+    if(!user) return;
+
     async function loadResources() {
       const fetchedResources = await fetchResources();
       setResources(fetchedResources);
     }
     loadResources();
-  }, [])
+  }, [user])
 
   useEffect(() => {
     if(!user) return;
@@ -45,13 +47,15 @@ export default function DashboardPage() {
 
   
   useEffect(() => {
+    if(!user) return;
+    
     async function loadResources() {
       const fetchedRecentResources = await fetchRecentResources();
       setRecentUploads(fetchedRecentResources);
     }
 
     loadResources();
-  }, [recentUploads]);
+  }, [user]);
  
   const usersUploadedResource = resources.filter((resource) => resource.uploadedBy?.uid === user?.uid);
 
@@ -65,7 +69,7 @@ export default function DashboardPage() {
       
       <div className='flex flex-1 flex-col'>
         {/* Header */}
-        <Header />
+        <Header searchTerm="" onSearchChange={() => undefined} />
 
         <main className='flex-1 p-6'>
             <div className='flex flex-col md:flex-row justify-between items-center mb-5'>

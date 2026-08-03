@@ -1,32 +1,71 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
-import Image from "next/image";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FiAlertTriangle, FiCamera, FiMail, FiShield, FiUser } from "react-icons/fi";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import SignupPage from "@/app/signup/page";
 import { useAuth } from "@/context/authContext";
+import { supabase } from "@/lib/supabase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
 export default function SettingsPage() {
   const { user } = useAuth();
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [profilePic, setProfilePic] = useState<string | null>(null);
   const [deleteNotice, setDeleteNotice] = useState(false);
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
-    if (!file) return;
+    if(!file || !user) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (typeof reader.result === "string") {
-        setPreviewUrl(reader.result);
+    try {
+      const fileExtension = file.name.split(".").pop();
+      const fileName = `profile-pictures/${user.uid}.${fileExtension}`;
+
+        const { error } = await supabase.storage.from('Storage').upload(fileName, file, {
+        upsert: false,
+      })
+
+      if(error) {
+        throw error;
+      }
+
+      const { data } = supabase.storage.from('Storage').getPublicUrl(fileName);
+      const profileImgUrl = data.publicUrl;
+
+       await setDoc(
+        doc(db, 'users', user.uid), {
+          profileImgUrl
+        }, {
+          merge: true
+        }
+       );
+
+        setProfilePic(profileImgUrl);
+    } catch (error) {
+      console.log('Profile pic upload failed', error);
+    }
+  }
+
+  useEffect(() => {
+    const loadProfilePic = async () => {
+      if(!user) return;
+
+      const userDoc = await getDoc(
+        doc(db, 'users', user.uid)
+      );
+
+      if(userDoc.exists()) {
+        const data = userDoc.data();
+        if(data.profileImgUrl) {
+          setProfilePic(data.profileImgUrl);
+        }
       }
     };
-
-    reader.readAsDataURL(file);
-  };
+    loadProfilePic();
+  }, [user, profilePic]);
 
   return (
   <>
@@ -55,11 +94,11 @@ export default function SettingsPage() {
           <section className="rounded-2xl border border-(--border) bg-(--surface) p-5 shadow-sm sm:p-6">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
               <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-full border border-(--border) bg-(--surface-variant)">
-                {previewUrl ? (
-                  <Image
+                {profilePic ? (
+                  <img
                     width={96}
                     height={96}
-                    src={previewUrl}
+                    src={profilePic}
                     alt="Profile preview"
                     className="h-full w-full object-cover"
                    />
@@ -79,7 +118,7 @@ export default function SettingsPage() {
                 <div className="mt-4 flex flex-wrap gap-3">
                   <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-(--primary) px-4 py-2 text-sm font-medium text-(--on-primary) transition hover:bg-(--primary-hover)">
                     <FiCamera className="h-4 w-4" />
-                    <span>Upload Profile Picture</span>
+                    <span>Update Profile Picture</span>
                     <input
                       type="file"
                       accept="image/*"
