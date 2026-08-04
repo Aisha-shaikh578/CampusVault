@@ -9,11 +9,28 @@ import { useAuth } from "@/context/authContext";
 import { supabase } from "@/lib/supabase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { deleteUser, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
+import { redirect } from "next/navigation";
 
 export default function SettingsPage() {
   const { user } = useAuth();
   const [profilePic, setProfilePic] = useState<string | null>(null);
-  const [deleteNotice, setDeleteNotice] = useState(false);
+
+  const deleteAccount = async () => {
+    if(!user) return;
+
+     const password = window.prompt('Please enter your password to confirm your account deletion');
+     if(!password) return;
+
+     try {
+      const credential = EmailAuthProvider.credential(user.email!, password);
+      await(reauthenticateWithCredential(user, credential));
+      await deleteUser(user);
+      redirect('/signup')
+     } catch (error) {
+      console.log(error)
+     }
+  }
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -21,8 +38,7 @@ export default function SettingsPage() {
     if(!file || !user) return;
 
     try {
-      const fileExtension = file.name.split(".").pop();
-      const fileName = `profile-pictures/${user.uid}.${fileExtension}`;
+      const fileName = `profile-pictures/${user.uid}`;
 
         const { error } = await supabase.storage.from('Storage').upload(fileName, file, {
         upsert: false,
@@ -65,7 +81,7 @@ export default function SettingsPage() {
       }
     };
     loadProfilePic();
-  }, [user, profilePic]);
+  }, [user]);
 
   return (
   <>
@@ -118,7 +134,7 @@ export default function SettingsPage() {
                 <div className="mt-4 flex flex-wrap gap-3">
                   <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-(--primary) px-4 py-2 text-sm font-medium text-(--on-primary) transition hover:bg-(--primary-hover)">
                     <FiCamera className="h-4 w-4" />
-                    <span>Update Profile Picture</span>
+                    <span>Upload Profile Picture</span>
                     <input
                       type="file"
                       accept="image/*"
@@ -168,24 +184,18 @@ export default function SettingsPage() {
                 <h2 className="text-lg font-semibold">Delete Account</h2>
               </div>
               <p className="mt-2 max-w-2xl text-sm leading-6 text-(--text-secondary)">
-                Delete your Campus Vault account and associated account data.
+                Are you sure you want to delete your Campus Vault account?
               </p>
             </div>
 
               <button
                 type="button"
-                onClick={() => setDeleteNotice(true)}
+                onClick={() => deleteAccount()}
                 className="inline-flex items-center justify-center rounded-lg bg-(--danger) cursor-pointer px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
               >
                 Delete Account
               </button>
             </div>
-
-            {deleteNotice ? (
-              <p className="mt-4 rounded-lg border border-(--danger)/30 bg-(--danger)/10 p-3 text-sm text-(--danger)">
-                Account deletion is not enabled yet. This action is only a UI placeholder for now.
-              </p>
-            ) : null}
           </section>
          </div>
         </main>
