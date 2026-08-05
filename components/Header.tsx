@@ -6,6 +6,8 @@ import { BsMoon } from "react-icons/bs";
 import { useContext, useState } from "react";
 import { ThemeContext } from "@/context/themeContext";
 import { usePathname } from "next/navigation";
+import ProfilePicture from "./ProfilePicture";
+import Link from "next/link";
 
 type HeaderProps = {
   searchTerm: string;
@@ -52,9 +54,11 @@ export default function Header({ searchTerm, onSearchChange }: HeaderProps) {
         </button>
 
         {/* Profile */}
-        <button className="flex h-10.5 w-10.5 items-center justify-center rounded-full border border-(--border) hover:opacity-80 cursor-pointer">
-          <FiUser size={20} />
-        </button>
+        <Link href='/dashboard/settings'>
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-(--border) bg-(--surface-variant)">
+          <ProfilePicture/>
+          </div>
+        </Link>
       </div>
     </header>
   );

@@ -11,10 +11,10 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { deleteUser, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import { redirect } from "next/navigation";
+import ProfilePicture from "@/components/ProfilePicture";
 
 export default function SettingsPage() {
-  const { user } = useAuth();
-  const [profilePic, setProfilePic] = useState<string | null>(null);
+  const { user, profilePic } = useAuth();
 
   const deleteAccount = async () => {
     if(!user) return;
@@ -58,30 +58,10 @@ export default function SettingsPage() {
           merge: true
         }
        );
-
-        setProfilePic(profileImgUrl);
     } catch (error) {
       console.log('Profile pic upload failed', error);
     }
   }
-
-  useEffect(() => {
-    const loadProfilePic = async () => {
-      if(!user) return;
-
-      const userDoc = await getDoc(
-        doc(db, 'users', user.uid)
-      );
-
-      if(userDoc.exists()) {
-        const data = userDoc.data();
-        if(data.profileImgUrl) {
-          setProfilePic(data.profileImgUrl);
-        }
-      }
-    };
-    loadProfilePic();
-  }, [user]);
 
   return (
   <>
@@ -111,13 +91,7 @@ export default function SettingsPage() {
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
               <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-full border border-(--border) bg-(--surface-variant)">
                 {profilePic ? (
-                  <img
-                    width={96}
-                    height={96}
-                    src={profilePic}
-                    alt="Profile preview"
-                    className="h-full w-full object-cover"
-                   />
+                 <ProfilePicture />
               ) : (
                 <div className="flex h-full w-full items-center justify-center bg-(--surface-variant)">
                   <FiUser className="h-10 w-10 text-(--text-secondary)" />

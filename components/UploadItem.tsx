@@ -5,6 +5,7 @@ import {
   FiLink,
   FiUser,
 } from "react-icons/fi";
+import ProfilePicture from "./ProfilePicture";
 
 type UploadItemProps = {
   id: string;
@@ -51,8 +52,8 @@ export default function UploadItem({
           {type.toUpperCase()}
         </span>
 
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-(--surface-variant)">
-          <FiUser size={16} />
+        <div className="flex h-8 w-8 items-center justify-center rounded-full overflow-hidden bg-(--surface-variant)">
+          <ProfilePicture />
         </div>
       </div>
     </div>
