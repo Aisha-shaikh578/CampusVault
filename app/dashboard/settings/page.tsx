@@ -38,7 +38,7 @@ export default function SettingsPage() {
     if(!file || !user) return;
 
     try {
-      const fileName = `profile-pictures/${user.uid}`;
+      const fileName = `profile-pictures/${user.uid}-${Date.now()}`;
 
         const { error } = await supabase.storage.from('Storage').upload(fileName, file, {
         upsert: true,
