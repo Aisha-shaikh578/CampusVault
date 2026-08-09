@@ -1,20 +1,20 @@
 "use client";
 
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent } from "react";
 import { FiAlertTriangle, FiCamera, FiMail, FiShield, FiUser } from "react-icons/fi";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import SignupPage from "@/app/signup/page";
 import { useAuth } from "@/context/authContext";
 import { supabase } from "@/lib/supabase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { deleteUser, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import { redirect } from "next/navigation";
 import ProfilePicture from "@/components/ProfilePicture";
 
 export default function SettingsPage() {
-  const { user, profilePic } = useAuth();
+  const { user, profilePic, setProfilePic } = useAuth();
 
   const deleteAccount = async () => {
     if(!user) return;
@@ -41,7 +41,7 @@ export default function SettingsPage() {
       const fileName = `profile-pictures/${user.uid}`;
 
         const { error } = await supabase.storage.from('Storage').upload(fileName, file, {
-        upsert: false,
+        upsert: true,
       })
 
       if(error) {
@@ -58,6 +58,7 @@ export default function SettingsPage() {
           merge: true
         }
        );
+       setProfilePic(profileImgUrl);
     } catch (error) {
       console.log('Profile pic upload failed', error);
     }

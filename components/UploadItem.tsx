@@ -3,7 +3,6 @@ import React from "react";
 import {
   FiFileText,
   FiLink,
-  FiUser,
 } from "react-icons/fi";
 import ProfilePicture from "./ProfilePicture";
 
@@ -41,7 +40,7 @@ export default function UploadItem({
           </h3>
 
           <p className="text-sm text-(--text-secondary)">
-            {category} • {uploadedAt}
+            {category} • {uploadedAt} ago
           </p>
         </div>
       </div>

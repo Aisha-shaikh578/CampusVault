@@ -1,9 +1,9 @@
 "use client";
 
-import { FiSearch, FiUser } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
 import { MdLightMode } from "react-icons/md";
 import { BsMoon } from "react-icons/bs";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "@/context/themeContext";
 import { usePathname } from "next/navigation";
 import ProfilePicture from "./ProfilePicture";

@@ -8,6 +8,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 interface AuthContextType {
   user: User | null;
   profilePic: string | null;
+  setProfilePic: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -36,7 +37,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, profilePic }}>
+    <AuthContext.Provider value={{ user, profilePic, setProfilePic }}>
       { children }
     </AuthContext.Provider>
   )
