@@ -12,6 +12,7 @@ type UploadItemProps = {
   category: string;
   uploadedAt: string;
   type: "PDF" | "Link" | "Doc";
+  userProfilePic: string;
 };
 
 export default function UploadItem({
@@ -20,6 +21,7 @@ export default function UploadItem({
   category,
   uploadedAt,
   type,
+  userProfilePic
 }: UploadItemProps) {
   return (
     <Link href={`/resources/${id}`}>
@@ -52,7 +54,7 @@ export default function UploadItem({
         </span>
 
         <div className="flex h-8 w-8 items-center justify-center rounded-full overflow-hidden bg-(--surface-variant)">
-          <ProfilePicture />
+          <ProfilePicture userProfilePic={userProfilePic}/>
         </div>
       </div>
     </div>

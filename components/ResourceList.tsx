@@ -30,6 +30,7 @@ export default function ResourceList({
                 category={uploadedResource.category}
                 uploadedAt={formatDistanceToNow(uploadedResource.uploadedAt.toDate())}
                 type={uploadedResource.resourceType}
+                userProfilePic={uploadedResource.userProfilePic}
               />
             ))}
           </div>

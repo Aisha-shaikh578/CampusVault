@@ -1,7 +1,8 @@
 'use client'
 
 import ActionBtn from "@/components/ActionBtn";
-import { auth, db } from "@/lib/firebase";
+import { useAuth } from "@/context/authContext";
+import { db } from "@/lib/firebase";
 import { supabase } from "@/lib/supabase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import Link from "next/link";
@@ -25,7 +26,7 @@ export default function UploadPage() {
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [resourceType, setResourceType] = useState<'PDF' | 'Link' | 'Doc'>('PDF')
   const MAX_SIZE = 5 * 1024 * 1024;   // 5MB
-  const user = auth.currentUser;
+  const {user, profilePic} = useAuth();
   
   const handleUpload = async() => {
     if (isUploading) return;
@@ -75,7 +76,8 @@ export default function UploadPage() {
             email: user.email,
             name: user?.email?.split('@')[0],
           },
-          uploadedAt: serverTimestamp()
+          uploadedAt: serverTimestamp(),
+          userProfilePic: profilePic || null
         }
       );
 
@@ -89,6 +91,8 @@ export default function UploadPage() {
       redirect('/dashboard');
     }
   }
+
+  
 
   const onDropAccepted = (acceptedFiles: File[]) => {
     setError(null);

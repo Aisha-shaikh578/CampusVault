@@ -7,7 +7,8 @@ export interface Resource {
   resourceType: 'PDF' | 'Link' | 'Doc',
   fileUrl: string,
   uploadedAt: Timestamp,
-  uploadedBy: UploadedBy
+  uploadedBy: UploadedBy,
+  userProfilePic: string
 }
 
 export interface UploadedBy {
