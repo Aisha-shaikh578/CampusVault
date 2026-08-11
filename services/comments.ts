@@ -3,14 +3,15 @@ import { CommentTypes } from "@/types/commentTypes";
 import { User } from "firebase/auth";
 import { addDoc, collection, getDocs, orderBy, query, serverTimestamp } from "firebase/firestore";
 
-export async function addComment(resourceId: string, text: string, user: User) {
+export async function addComment(resourceId: string, text: string, user: User, profilePic: string | null) {
   const userName = user?.email?.split('@')[0];
   const commentsRef = collection(db, 'resources', resourceId, 'comments');
   const commentedDocRef = await addDoc(commentsRef, {
     text,
     userUid: user.uid,
     username: userName,
-    createdAt: serverTimestamp()
+    createdAt: serverTimestamp(),
+    userProfilePic: profilePic
   })
 }
 

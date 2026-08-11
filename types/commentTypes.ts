@@ -9,5 +9,6 @@ export interface CommentTypes{
   text: string,
   username: string,
   userUid: string,
-  createdAt: Timestamp
+  createdAt: Timestamp,
+  userProfilePic: string | null
 }

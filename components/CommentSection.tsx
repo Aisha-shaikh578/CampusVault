@@ -7,10 +7,11 @@ import { addComment, getComments } from "@/services/comments";
 import { useAuth } from "@/context/authContext";
 import { formatDistanceToNow } from "date-fns";
 import { CommentSectionProps } from "@/types/commentTypes";
+import ProfilePicture from "./ProfilePicture";
  
 
  export default function CommentSection({resourceId}: CommentSectionProps) {
-  const { user } = useAuth();
+  const { user, profilePic } = useAuth();
   const [inputComment, setInputComment] = useState('');
   const [comments, setComments] = useState<CommentTypes[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,7 +32,7 @@ import { CommentSectionProps } from "@/types/commentTypes";
     setIsSubmitting(true);
 
     try {
-      await addComment(resourceId, inputComment, user);
+      await addComment(resourceId, inputComment, user, profilePic);
       setInputComment('');
       const data = await getComments(resourceId);
       setComments(data);
@@ -49,7 +50,9 @@ import { CommentSectionProps } from "@/types/commentTypes";
       <div className="space-y-5">
         {comments.map((comment, idx) => (
           <div key={comment.id || idx} className="flex gap-3">
-            <div className="bg-gray-300 rounded-full h-8 w-8" />
+            <div className="bg-gray-300 rounded-full overflow-hidden h-8 w-8">
+              <ProfilePicture userProfilePic={comment.userProfilePic}/>
+            </div>
 
             <div className="flex-1">
               <div className="flex justify-between">
