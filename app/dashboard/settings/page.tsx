@@ -73,7 +73,7 @@ export default function SettingsPage() {
       <div className="flex flex-1 flex-col">
         <Header searchTerm="" onSearchChange={() => undefined} />
 
-      <main className="flex-1 p-4 sm:p-6 lg:p-8">
+      <main className="flex-1 p-4 sm:p-6 lg:p-8 ml-20 lg:ml-60 mt-16">
         <div className="mx-auto flex max-w-5xl flex-col gap-6">
           <section className="rounded-2xl border border-(--border) bg-(--surface) p-6 shadow-sm">
             <div className="flex flex-col gap-2">

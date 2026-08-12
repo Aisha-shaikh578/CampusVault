@@ -71,7 +71,7 @@ export default function DashboardPage() {
         {/* Header */}
         <Header searchTerm="" onSearchChange={() => undefined} />
 
-        <main className='flex-1 p-6'>
+        <main className='flex-1 p-6 ml-20 lg:ml-60 mt-16'>
             <div className='flex flex-col md:flex-row justify-between items-center mb-5'>
               <h1 className="mb-4 text-lg md:text-2xl font-semibold md:mt-3">
                 Welcome back, {userName}

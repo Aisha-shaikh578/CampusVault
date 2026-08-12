@@ -21,7 +21,7 @@ export default function Header({ searchTerm, onSearchChange }: HeaderProps) {
   const { profilePic } = useAuth();
 
   return (
-    <header className="flex items-center justify-between gap-4 border-b border-(--border) px-4 py-3">
+    <header className="flex items-center justify-between gap-4 border-b border-(--border) px-4 py-3 fixed top-0 right-0 left-20 lg:left-55 z-50 backdrop-blur-xs">
 
       {/* Search Bar */}
       <div className="flex-1">

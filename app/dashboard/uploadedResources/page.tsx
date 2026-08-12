@@ -57,7 +57,7 @@ export default function ResourcesPage() {
       <div className="flex flex-1 flex-col">
         <Header searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-6 ml-20 lg:ml-60 mt-16">
           <div className="mb-6">
             <h1 className="text-2xl font-semibold">Resources</h1>
             <p className="mt-2 text-sm text-(--text-secondary)">
