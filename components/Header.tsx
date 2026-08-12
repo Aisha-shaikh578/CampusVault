@@ -1,6 +1,6 @@
 "use client";
 
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiUser } from "react-icons/fi";
 import { MdLightMode } from "react-icons/md";
 import { BsMoon } from "react-icons/bs";
 import { useContext } from "react";
@@ -8,6 +8,7 @@ import { ThemeContext } from "@/context/themeContext";
 import { usePathname } from "next/navigation";
 import ProfilePicture from "./ProfilePicture";
 import Link from "next/link";
+import { useAuth } from "@/context/authContext";
 
 type HeaderProps = {
   searchTerm: string;
@@ -17,6 +18,7 @@ type HeaderProps = {
 export default function Header({ searchTerm, onSearchChange }: HeaderProps) {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const pathname = usePathname();
+  const { profilePic } = useAuth();
 
   return (
     <header className="flex items-center justify-between gap-4 border-b border-(--border) px-4 py-3">
@@ -56,7 +58,12 @@ export default function Header({ searchTerm, onSearchChange }: HeaderProps) {
         {/* Profile */}
         <Link href='/dashboard/settings'>
           <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-(--border) bg-(--surface-variant)">
-          <ProfilePicture/>
+          {profilePic ?
+            <ProfilePicture /> :
+            <div className="flex h-full w-full items-center justify-center bg-(--surface-variant)">
+              <FiUser className="h-7 w-7 text-(--text-secondary)" />
+            </div>
+          }
           </div>
         </Link>
       </div>

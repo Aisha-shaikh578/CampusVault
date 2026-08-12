@@ -3,6 +3,7 @@ import React from "react";
 import {
   FiFileText,
   FiLink,
+  FiUser,
 } from "react-icons/fi";
 import ProfilePicture from "./ProfilePicture";
 
@@ -54,7 +55,12 @@ export default function UploadItem({
         </span>
 
         <div className="flex h-8 w-8 items-center justify-center rounded-full overflow-hidden bg-(--surface-variant)">
-          <ProfilePicture userProfilePic={userProfilePic}/>
+          {userProfilePic ?
+           <ProfilePicture userProfilePic={userProfilePic}/> :
+          <div className="flex h-full w-full items-center justify-center bg-(--surface-variant)">
+            <FiUser className="h-5 w-5 text-(--text-secondary)" />
+          </div>
+          }
         </div>
       </div>
     </div>

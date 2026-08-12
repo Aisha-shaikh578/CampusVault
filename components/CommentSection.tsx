@@ -8,6 +8,7 @@ import { useAuth } from "@/context/authContext";
 import { formatDistanceToNow } from "date-fns";
 import { CommentSectionProps } from "@/types/commentTypes";
 import ProfilePicture from "./ProfilePicture";
+import { FiUser } from "react-icons/fi";
  
 
  export default function CommentSection({resourceId}: CommentSectionProps) {
@@ -51,7 +52,12 @@ import ProfilePicture from "./ProfilePicture";
         {comments.map((comment, idx) => (
           <div key={comment.id || idx} className="flex gap-3">
             <div className="bg-gray-300 rounded-full overflow-hidden h-8 w-8">
-              <ProfilePicture userProfilePic={comment.userProfilePic}/>
+              {comment.userProfilePic ?
+              <ProfilePicture userProfilePic={comment.userProfilePic}/> :
+              <div className="flex h-full w-full items-center justify-center bg-(--surface-variant)">
+                <FiUser className="h-6 w-6 text-(--text-secondary)" />
+              </div>
+              }
             </div>
 
             <div className="flex-1">
