@@ -15,6 +15,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import Image from "next/image";
 import logo from '../images/logo.png';
+import { toast } from "react-hot-toast";
 
 const menuItems = [
   {
@@ -51,6 +52,7 @@ export default function Sidebar() {
   const handleLogOut = async() => {
     try {
       await signOut(auth);
+      toast.success('Logged out successfully');
     } catch (err) {
       console.log('Logout failed ',err)
     }

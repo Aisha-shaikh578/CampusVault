@@ -9,6 +9,7 @@ import { formatDistanceToNow } from "date-fns";
 import { CommentSectionProps } from "@/types/commentTypes";
 import ProfilePicture from "./ProfilePicture";
 import { FiUser } from "react-icons/fi";
+import { toast } from "react-hot-toast";
  
 
  export default function CommentSection({resourceId}: CommentSectionProps) {
@@ -37,6 +38,7 @@ import { FiUser } from "react-icons/fi";
       setInputComment('');
       const data = await getComments(resourceId);
       setComments(data);
+      toast.success('Comment added successfully!');
     } finally {
       setIsSubmitting(false);
     }

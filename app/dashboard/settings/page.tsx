@@ -12,6 +12,7 @@ import { db } from "@/lib/firebase";
 import { deleteUser, EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import { redirect } from "next/navigation";
 import ProfilePicture from "@/components/ProfilePicture";
+import { toast } from "react-hot-toast";
 
 export default function SettingsPage() {
   const { user, profilePic, setProfilePic } = useAuth();
@@ -26,6 +27,7 @@ export default function SettingsPage() {
       const credential = EmailAuthProvider.credential(user.email!, password);
       await(reauthenticateWithCredential(user, credential));
       await deleteUser(user);
+      toast.success('Account deleted successfully');
       redirect('/signup')
      } catch (error) {
       console.log(error)
@@ -59,6 +61,7 @@ export default function SettingsPage() {
         }
        );
        setProfilePic(profileImgUrl);
+       toast.success('Profile picture updated');
     } catch (error) {
       console.log('Profile pic upload failed', error);
     }
