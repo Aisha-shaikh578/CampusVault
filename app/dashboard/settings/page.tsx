@@ -162,7 +162,7 @@ export default function SettingsPage() {
                 <h2 className="text-lg font-semibold">Delete Account</h2>
               </div>
               <p className="mt-2 max-w-2xl text-sm leading-6 text-(--text-secondary)">
-                Are you sure you want to delete your Campus Vault account?
+                Are you sure you want to delete your <b>Campus Vault</b> account?
               </p>
             </div>
 

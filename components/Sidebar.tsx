@@ -5,7 +5,6 @@ import {
   FiHome,
   FiFolder,
   FiBookmark,
-  FiUser,
   FiLogOut,
   FiSettings,
 } from "react-icons/fi";
@@ -32,11 +31,6 @@ const menuItems = [
     name: "Bookmarks",
     icon: FiBookmark,
     href: "/dashboard/bookmarks",
-  },
-  {
-    name: "Friends",
-    icon: FiUser,
-    href: "/friends",
   },
   {
     name: "Settings",
