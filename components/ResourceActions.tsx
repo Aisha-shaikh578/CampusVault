@@ -84,6 +84,37 @@ export default function ResourceActions({ resourceId }: ResourceActionProps) {
     }
   }
 
+  const handleShare = async () => {
+    try {
+      const resource = await fetchResourceById(resourceId);
+
+      if (!resource?.fileUrl) {
+        toast.error('Resource link not available.');
+        return;
+      }
+
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: resource.title,
+            url: resource.fileUrl.toString(),
+          });
+          return;
+        } catch (error) {
+          if (error instanceof DOMException && error.name === 'AbortError') {
+            return;
+          }
+        }
+      }
+
+      await navigator.clipboard.writeText(resource.fileUrl.toString());
+      toast.success('Resource link copied!');
+    } catch (error) {
+      console.error('Share error:', error);
+      toast.error('Unable to share or copy the resource link.');
+    }
+  }
+
 
   return (
    <div className="mt-6">
@@ -97,7 +128,9 @@ export default function ResourceActions({ resourceId }: ResourceActionProps) {
         icon={downloaded ? <TiTick size={24}/> : <BiDownload size={18}/>} 
         onClick={handleDownload}/>
 
-        <Button text="Share" icon={<BiShare size={18}/>}/>
+        <Button text="Share" 
+        icon={<BiShare size={18}/>} 
+        onClick={handleShare}/>
 
         <Button 
         text={`${bookmarked === true ? 'Bookmarked' : 'Bookmark'}`} 
