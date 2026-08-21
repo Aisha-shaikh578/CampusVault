@@ -17,6 +17,7 @@ import { Resource } from '@/types/resourceType';
 import { fetchResources } from '@/services/resourceService';
 import { countBookmarks } from '@/services/bookmarkService';
 import { fetchRecentResources } from "@/services/resourceService";
+import { FadeIn } from "@/context/motionContext";
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -72,6 +73,7 @@ export default function DashboardPage() {
         <Header searchTerm="" onSearchChange={() => undefined} />
 
         <main className='flex-1 p-6 ml-20 lg:ml-60 mt-16'>
+          <FadeIn>
             <div className='flex flex-col md:flex-row justify-between items-center mb-5'>
               <h1 className="mb-4 text-lg md:text-2xl font-semibold md:mt-3">
                 Welcome back, {userName}
@@ -84,7 +86,7 @@ export default function DashboardPage() {
                 <span>{<FiUpload />}</span>
               </button>
              </Link>
-            </div> 
+            </div>
 
             {/* StatsCard Grid */}
             <div className="grid gap-5 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6">
@@ -119,6 +121,7 @@ export default function DashboardPage() {
               resources={recentUploads}
               emptyMessage="No resources available yet."
             />
+          </FadeIn>
         </main>
       </div>
     </div>

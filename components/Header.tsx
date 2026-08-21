@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import ProfilePicture from "./ProfilePicture";
 import Link from "next/link";
 import { useAuth } from "@/context/authContext";
+import { motion } from "framer-motion";
 
 type HeaderProps = {
   searchTerm: string;
@@ -48,12 +49,15 @@ export default function Header({ searchTerm, onSearchChange }: HeaderProps) {
       {/* Right Section */}
       <div className="flex items-center gap-2 md:gap-4 xl:gap-6">
         {/* Theme Toggle */}
-        <button
+        <motion.button
+          type="button"
+          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           className="flex items-center rounded-full border border-(--border) p-2.5 hover:opacity-80 cursor-pointer"
           onClick={toggleTheme}
+          whileTap={{ rotate: 120}}
         >
           {theme === 'light' ? <BsMoon size={18} color="orange" /> : <MdLightMode size={20} color="orange" />}
-        </button>
+        </motion.button>
 
         {/* Profile */}
         <Link href='/dashboard/settings'>

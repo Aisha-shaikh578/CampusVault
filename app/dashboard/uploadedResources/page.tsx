@@ -8,6 +8,7 @@ import { useAuth } from '@/context/authContext';
 import { fetchResources } from '@/services/resourceService';
 import { Resource } from '@/types/resourceType';
 import { redirect } from 'next/navigation';
+import { FadeIn } from '@/context/motionContext';
 
 export default function ResourcesPage() {
   const { user } = useAuth();
@@ -58,6 +59,7 @@ export default function ResourcesPage() {
         <Header searchTerm={searchTerm} onSearchChange={setSearchTerm} />
 
         <main className="flex-1 p-6 ml-20 lg:ml-60 mt-16">
+          <FadeIn>
           <div className="mb-6">
             <h1 className="text-2xl font-semibold">Resources</h1>
             <p className="mt-2 text-sm text-(--text-secondary)">
@@ -76,6 +78,7 @@ export default function ResourcesPage() {
               emptyMessage={emptyMessage}
             />
           )}
+          </FadeIn>
         </main>
       </div>
     </div>

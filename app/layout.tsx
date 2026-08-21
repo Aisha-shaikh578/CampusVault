@@ -4,6 +4,7 @@ import "./globals.css";
 import { AuthProvider } from "@/context/authContext";
 import { ThemeProvider } from "@/context/themeContext";
 import { Toaster } from "react-hot-toast";
+import { MotionProvider } from "@/context/motionContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,8 +34,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <AuthProvider>
           <ThemeProvider>
-            <Toaster position="top-right" toastOptions={{ duration: 5000 }} />
-            {children}
+            <MotionProvider>
+              <Toaster position="top-right" toastOptions={{ duration: 5000 }} />
+              {children}
+            </MotionProvider>
           </ThemeProvider>
         </AuthProvider>
       </body>

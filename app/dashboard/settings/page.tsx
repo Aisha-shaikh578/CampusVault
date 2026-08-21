@@ -13,6 +13,7 @@ import { deleteUser, EmailAuthProvider, reauthenticateWithCredential } from "fir
 import { redirect } from "next/navigation";
 import ProfilePicture from "@/components/ProfilePicture";
 import { toast } from "react-hot-toast";
+import { FadeIn } from "@/context/motionContext";
 
 export default function SettingsPage() {
   const { user, profilePic, setProfilePic } = useAuth();
@@ -77,6 +78,7 @@ export default function SettingsPage() {
         <Header searchTerm="" onSearchChange={() => undefined} />
 
       <main className="flex-1 p-4 sm:p-6 lg:p-8 ml-20 lg:ml-60 mt-16">
+        <FadeIn>
         <div className="mx-auto flex max-w-5xl flex-col gap-6">
           <section className="rounded-2xl border border-(--border) bg-(--surface) p-6 shadow-sm">
             <div className="flex flex-col gap-2">
@@ -176,6 +178,7 @@ export default function SettingsPage() {
             </div>
           </section>
          </div>
+         </FadeIn>
         </main>
       </div>
       </div>

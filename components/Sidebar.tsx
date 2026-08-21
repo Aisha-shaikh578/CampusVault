@@ -15,6 +15,8 @@ import { auth } from "@/lib/firebase";
 import Image from "next/image";
 import logo from '../images/logo.png';
 import { toast } from "react-hot-toast";
+import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 
 const menuItems = [
   {
@@ -42,6 +44,7 @@ const menuItems = [
 export default function Sidebar() {
 
   const { user } = useAuth();
+  const pathname = usePathname();
 
   const handleLogOut = async() => {
     try {
@@ -56,7 +59,12 @@ export default function Sidebar() {
     <aside className="flex h-screen fixed left-0 bottom-0 flex-col justify-between border-r border-(--border) px-2 py-4 lg:w-55 w-20">
       <div>
         {/* Logo */}
-        <div className="mb-4 flex items-center justify-center gap-1.5 px-1">
+        <motion.div
+          className="mb-4 flex items-center justify-center gap-1.5 px-1"
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: -4 }}
+          transition={{ duration: 0.35 }}
+        >
           <Image 
             src={logo}
             alt='Logo'
@@ -66,7 +74,7 @@ export default function Sidebar() {
           <span className="hidden lg:block text-lg font-bold">
             Campus Vault
           </span>
-        </div>
+        </motion.div>
 
         {/* Navigation */}
         <nav className="flex flex-col gap-3">
@@ -77,7 +85,7 @@ export default function Sidebar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="flex items-center justify-center lg:justify-start gap-3 rounded-lg p-3 text-(--text-primary) hover:text-(--on-primary) hover:bg-(--primary) transition"
+                className={`flex items-center justify-center lg:justify-start gap-3 rounded-lg p-3 hover:text-(--on-primary) hover:bg-(--primary) transition ${pathname === item.href ? 'bg-(--primary) text-white' : ''}`}
               >
                 <Icon size={22} />
 
@@ -93,13 +101,14 @@ export default function Sidebar() {
       {/* Logout */}
       {
       user ?  
-      <button 
+      <motion.button 
       className="flex flex-col items-center gap-2 rounded-lg p-3 cursor-pointer hover:text-white hover:bg-[#4338ca] transition"
       onClick={handleLogOut}
+      whileTap={{ scale: 0.96 }}
       >
         <FiLogOut size={24} />
         <span className="text-sm">Logout</span>
-      </button> :
+      </motion.button> : 
       null
       }
     </aside>

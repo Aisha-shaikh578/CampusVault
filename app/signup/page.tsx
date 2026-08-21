@@ -1,9 +1,11 @@
 'use client'
 
+import { FadeIn } from "@/context/motionContext";
 import { auth } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { useState, type ChangeEvent } from "react";
 import { toast } from "react-hot-toast";
 
@@ -96,16 +98,16 @@ export default function SignupPage() {
 
     try {
       const userCredentials = await createUserWithEmailAndPassword(auth, email.trim(), password);
-      toast.success('Account created successfully.');
       setEmail('');
       setPassword('');
       setConfirmPassword('');
       setAgreeToTerms(false);
+      toast.success('Account created successfully.');
+      redirect('/dashboard');
     } catch (error) {
       const message = error instanceof FirebaseError
         ? getFirebaseErrorMessage(error)
         : 'An unexpected error occurred while creating your account.';
-
       toast.error(message);
     } finally {
       setIsLoading(false);
@@ -115,6 +117,7 @@ export default function SignupPage() {
   return (
     <main className='min-h-screen bg-(--background) flex items-center justify-center px-4 py-10'>
       <div className="w-full max-w-md">
+        <FadeIn>
         <section className="relative overflow-hidden rounded-4xl border border-(--border) bg-(--surface) shadow-lg p-8">
           {/* Decorative Circles Top */}
           <div className="absolute -top-20 -right-20 h-52 w-52 rounded-full border-6 border-(--border)" />
@@ -226,6 +229,7 @@ export default function SignupPage() {
           {/* Decorative Circles Bottom*/}
           <div className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full border-6 border-(--border)" />
         </section>
+        </FadeIn>
       </div>
     </main>
   );

@@ -1,5 +1,6 @@
 'use client'
 
+import { FadeIn } from "@/context/motionContext";
 import { auth } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -94,7 +95,7 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen bg-(--background) flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-md">
-        {/* Card */}
+        <FadeIn>
         <section className="relative overflow-hidden rounded-4xl border border-(--border) bg-(--surface) shadow-lg p-8">
           {/* Top Decorative Circles */}
           <div className="absolute -top-20 -right-20 h-52 w-52 rounded-full border-7 border-(--border)" />
@@ -187,6 +188,7 @@ export default function LoginPage() {
           {/* Bottom Decorative Circles */}
           <div className="absolute -bottom-10 -left-24 h-60 w-60 rounded-full border-7 border-(--border)" />
         </section>
+        </FadeIn>
       </div>
     </main>
   );

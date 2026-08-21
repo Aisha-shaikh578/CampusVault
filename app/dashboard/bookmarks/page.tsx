@@ -8,6 +8,7 @@ import { useAuth } from '@/context/authContext';
 import { getBookmarkedResources } from '@/services/bookmarkService';
 import { Resource } from '@/types/resourceType';
 import { redirect } from 'next/navigation';
+import { FadeIn } from '@/context/motionContext';
 
 export default function BookmarksPage() {
   const { user } = useAuth();
@@ -44,6 +45,7 @@ export default function BookmarksPage() {
         <Header searchTerm="" onSearchChange={() => undefined}/>
 
         <main className="flex-1 p-6 ml-20 lg:ml-60 mt-16">
+          <FadeIn>
           <div className="mb-6">
             <h1 className="text-2xl font-semibold">Bookmarks</h1>
             <p className="mt-2 text-sm text-(--text-secondary)">
@@ -62,6 +64,7 @@ export default function BookmarksPage() {
               emptyMessage="You have no bookmarked resources yet."
             />
           )}
+          </FadeIn>
         </main>
       </div>
     </div>
