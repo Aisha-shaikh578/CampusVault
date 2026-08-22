@@ -1,10 +1,10 @@
-Campus Vault - Student Resource Sharing Platform
+Campus Vault - Student's Resource Sharing Platform
 
 Overview
 
-Campus Vault is a modern resource-sharing platform built for students to organize, upload, search, and share academic resources such as notes, PDFs, previous year question papers, and useful learning links.
+Campus Vault is a modern resource-sharing platform built for students to organize, upload, search, download and share academic resources such as notes, PDFs, previous year question papers, and useful learning links.
 
-The goal of this project is to solve a common problem faced by students: losing important study materials across chats, drives, and social media groups. Campus Vault provides a centralized place where students can securely store and access educational resources anytime.
+The goal of this project is to solve a common problem faced by students: losing important study materials across chats, drives, and social media platforms. Campus Vault provides a centralized place where students can securely store and access educational resources anytime.
 
 ---
 
@@ -18,6 +18,7 @@ Authentication
 - Secure Authentication using Firebase Auth
 - Protected Routes
 - Logout Functionality
+- Upload/Download/Share resources
 
 Resource Management
 
@@ -25,7 +26,7 @@ Resource Management
 - Upload Previous Year Question Papers
 - Save Educational Links
 - Categorize Resources by Subject
-- Add Resource Descriptions
+- Add Resource Links
 
 Search & Discovery
 
@@ -42,7 +43,7 @@ User Experience
 
 Storage
 
-- Secure File Uploads using Firebase Storage
+- Secure File Uploads using Supabase Storage
 - Cloud-based Resource Access
 - Download Resources Anytime
 
@@ -58,13 +59,13 @@ Frontend
 
 State Management
 
-- Redux Toolkit
+- Context Api
 
 Backend Services
 
 - Firebase Authentication
 - Firebase Firestore
-- Firebase Storage
+- Supabase Storage
 
 Deployment
 
@@ -127,8 +128,6 @@ Future Enhancements
 
 ---
 
-Learning Outcomes
-
 This project demonstrates:
 
 - Authentication Implementation
@@ -155,4 +154,4 @@ Author
 
 Aisha Shaikh
 
-Built with Next.js, Tailwind CSS, Redux Toolkit, Firebase Authentication, Firestore, and Firebase Storage.
+Built with Next.js, Tailwind CSS, Firebase Authentication, Firestore, and Supabase Storage.
