@@ -25,7 +25,7 @@ export default function UploadPage() {
   const [category, setCategory] = useState('Computer Science');
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [resourceType, setResourceType] = useState<'PDF' | 'Link' | 'Doc'>('PDF')
-  const MAX_SIZE = 5 * 1024 * 1024;   // 5MB
+  const MAX_SIZE = 8 * 1024 * 1024; 
   const {user, profilePic} = useAuth();
   
   const handleUpload = async() => {
@@ -132,6 +132,7 @@ export default function UploadPage() {
     accept: {
       'application/pdf': ['.pdf'],
       'application/msword': ['.doc'],
+      'text/plain': ['.txt'],
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
       'image/jpeg': ['.jpeg', '.jpg'],
       'image/png': ['.png']

@@ -5,7 +5,7 @@ import { auth } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState, type ChangeEvent } from "react";
 import { toast } from "react-hot-toast";
 
@@ -23,6 +23,7 @@ export default function SignupPage() {
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -103,7 +104,7 @@ export default function SignupPage() {
       setConfirmPassword('');
       setAgreeToTerms(false);
       toast.success('Account created successfully.');
-      redirect('/dashboard');
+      router.push('/dashboard');
     } catch (error) {
       const message = error instanceof FirebaseError
         ? getFirebaseErrorMessage(error)
@@ -180,9 +181,11 @@ export default function SignupPage() {
 
                   <span className="text-(--text-secondary)">
                     I agree with{" "}
-                    <span className="underline font-medium cursor-pointer">
-                      Terms & Services
-                    </span>
+                    <Link 
+                     href='/signup/terms'
+                     className="underline font-medium cursor-pointer">
+                      Terms of Service
+                    </Link>
                   </span>
                 </label>
                 {errors.terms && <p className="mt-1 text-sm text-red-600">{errors.terms}</p>}
