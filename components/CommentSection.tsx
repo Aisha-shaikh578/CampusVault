@@ -1,9 +1,9 @@
 'use client';
 
-import { BiSend } from "react-icons/bi";
+import { BiSend, BiTrash } from "react-icons/bi";
 import React, { useEffect, useState } from 'react'
 import { CommentTypes } from "@/types/commentTypes";
-import { addComment, getComments } from "@/services/comments";
+import { addComment, deleteComment, getComments } from "@/services/comments";
 import { useAuth } from "@/context/authContext";
 import { formatDistanceToNow } from "date-fns";
 import { CommentSectionProps } from "@/types/commentTypes";
@@ -44,6 +44,17 @@ import { toast } from "react-hot-toast";
     }
   };
 
+  const handleDelete = async (commentId: string) => {
+    try {
+    await deleteComment(resourceId, commentId);
+    const comments = await getComments(resourceId);
+    setComments(comments);
+    toast.success('Comment Deleted');
+    } catch (error) {
+      toast.error('Failed to delete your comment');
+    }
+  }
+
   return (
     <div className="mt-10">
       <h2 className="text-xl font-semibold mb-4">
@@ -68,9 +79,17 @@ import { toast } from "react-hot-toast";
                   {comment.username || 'Anonymous'}
                 </h3>
 
-                <span className="text-sm text-(--text-secondary)">
+                <div className="text-sm text-(--text-secondary) flex text-center">
                   {`${formatDistanceToNow(comment.createdAt.toDate())} ago`}
-                </span>
+                  { user?.uid === comment.userUid ?
+                  <button 
+                  onClick={() => handleDelete(comment.id)}
+                  className="text-red-500 pl-2 text-xl cursor-pointer">
+                     <BiTrash />
+                  </button> :
+                  null
+                  }
+                </div>
               </div>
 
               <p className="text-(--text-primary) mt-1">

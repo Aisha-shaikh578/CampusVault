@@ -1,7 +1,7 @@
 import { db } from "@/lib/firebase";
 import { CommentTypes } from "@/types/commentTypes";
 import { User } from "firebase/auth";
-import { addDoc, collection, getDocs, orderBy, query, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, orderBy, query, serverTimestamp } from "firebase/firestore";
 
 export async function addComment(resourceId: string, text: string, user: User, profilePic: string | null) {
   const userName = user?.email?.split('@')[0];
@@ -28,3 +28,9 @@ export async function getComments(resourceId: string) {
   } as CommentTypes));
   return comments;
 }
+
+
+export async function deleteComment(resourceId: string, commentId: string) {
+  const commentsRef = doc(db, 'resources', resourceId, 'comments', commentId);
+  await deleteDoc(commentsRef);
+};
