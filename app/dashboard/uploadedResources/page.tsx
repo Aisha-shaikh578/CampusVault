@@ -9,12 +9,15 @@ import { fetchResources } from '@/services/resourceService';
 import { Resource } from '@/types/resourceType';
 import { redirect } from 'next/navigation';
 import { FadeIn } from '@/context/motionContext';
+import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 
 export default function ResourcesPage() {
   const { user } = useAuth();
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
     useEffect(() => {
     if (!user) {
@@ -34,6 +37,10 @@ export default function ResourcesPage() {
       loadResources();
     }, [user]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
+
   if (!user) {
     redirect('/signup')
   }
@@ -46,6 +53,11 @@ export default function ResourcesPage() {
 
     return resource.title.toLowerCase().includes(searchQuery);
   });
+
+  const totalPages = Math.ceil(filteredResources.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedResources = filteredResources.slice(startIndex, endIndex);
 
   const emptyMessage = resources.length === 0
     ? 'There are no resources uploaded yet.'
@@ -72,11 +84,34 @@ export default function ResourcesPage() {
               Loading Resources...
             </div>
           ) : (
-            <ResourceList
-              title="Uploaded Resources"
-              resources={filteredResources}
-              emptyMessage={emptyMessage}
-            />
+            <>
+              <ResourceList
+                title="Uploaded Resources"
+                resources={paginatedResources}
+                emptyMessage={emptyMessage}
+              />
+              {filteredResources.length > 0 && totalPages > 1 && (
+                <div className="mt-6 flex items-center justify-center gap-3">
+                  <button
+                    onClick={() => setCurrentPage((page) => page - 1)}
+                    disabled={currentPage === 1}
+                    className="flex items-center cursor-pointer gap-2 px-2 py-2 rounded-lg border disabled:opacity-50 disabled:cursor-not-allowed hover:disabled:bg-transparent hover:bg-(--primary) hover:text-white"
+                  >
+                    <FiArrowLeft size={18} />
+                  </button>
+                  <span className="text-sm text-(--text-secondary)">
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  <button
+                    onClick={() => setCurrentPage((page) => page + 1)}
+                    disabled={currentPage === totalPages}
+                    className="flex items-center cursor-pointer gap-2 px-2 py-2 rounded-lg border disabled:opacity-50 disabled:cursor-not-allowed hover:disabled:bg-transparent hover:bg-(--primary) hover:text-white"
+                  >
+                    <FiArrowRight size={18} />
+                  </button>
+                </div>
+              )}
+            </>
           )}
           </FadeIn>
         </main>
