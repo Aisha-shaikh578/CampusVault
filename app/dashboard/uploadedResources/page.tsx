@@ -10,6 +10,7 @@ import { Resource } from '@/types/resourceType';
 import { redirect } from 'next/navigation';
 import { FadeIn } from '@/context/motionContext';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 export default function ResourcesPage() {
   const { user } = useAuth();
@@ -29,7 +30,12 @@ export default function ResourcesPage() {
           const fetchedResources = await fetchResources();
           setResources(fetchedResources);
         } catch (error) {
-          console.error('Failed to load resources:', error);
+          try {
+           const fetchedResources = await fetchResources();
+           setResources(fetchedResources);
+          } catch (error) {
+            toast.error('Failed to load resources');
+          }  
         } finally {
           setLoading(false);
         }

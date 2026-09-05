@@ -18,6 +18,7 @@ import { fetchResources } from '@/services/resourceService';
 import { countBookmarks } from '@/services/bookmarkService';
 import { fetchRecentResources } from "@/services/resourceService";
 import { FadeIn } from "@/context/motionContext";
+import toast from 'react-hot-toast';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -51,8 +52,17 @@ export default function DashboardPage() {
     if(!user) return;
     
     async function loadResources() {
+      try {
       const fetchedRecentResources = await fetchRecentResources();
-      setRecentUploads(fetchedRecentResources);
+      setRecentUploads(fetchedRecentResources); 
+      } catch (error) {
+        try {
+         const fetchedRecentResources = await fetchRecentResources();
+         setRecentUploads(fetchedRecentResources);
+        } catch (error) {
+          toast.error('Unexpected error occured while fetching recent uploads');
+        }  
+      }
     }
 
     loadResources();

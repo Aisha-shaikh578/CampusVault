@@ -25,7 +25,12 @@ export default function BookmarksPage() {
         const resources = await getBookmarkedResources(user.uid);
         setBookmarkedResources(resources);
       } catch (error) {
-        console.error('Failed to load bookmarked resources:', error);
+        try {
+        const resources = await getBookmarkedResources(user.uid);
+        setBookmarkedResources(resources);  
+        } catch (error) {
+         console.error('Failed to load bookmarked resources:', error);
+        }
       } finally {
         setLoading(false);
       }
