@@ -3,8 +3,11 @@ import { Resource } from "@/types/resourceType";
 import { collection, doc, getDoc, getDocs, limit, orderBy, query } from "firebase/firestore";
 
 export async function fetchResources(): Promise<Resource[]> {
-  const resourceCollection = collection(db, 'resources'); 
-  const resourceSnapshot = await getDocs(resourceCollection);
+  const resourceQuery = query(
+    collection(db, 'resources'),
+    orderBy('uploadedAt', 'desc'),
+  ); 
+  const resourceSnapshot = await getDocs(resourceQuery);
   const uploadedResources = resourceSnapshot.docs.map((resourceDoc) => ({
     id: resourceDoc.id,
     ...resourceDoc.data(),
