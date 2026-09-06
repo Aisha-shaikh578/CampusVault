@@ -106,6 +106,10 @@ import { toast } from "react-hot-toast";
           type="text"
           value={inputComment}
           onChange={(e) => setInputComment(e.target.value)}
+          onKeyDown={(e) => { 
+            if (e.key === 'Enter') {
+              handleAddComment()
+            }}}
           placeholder="Write a comment..."
           className="flex-1 border border-(--border) rounded-lg px-4 py-3 bg-(--surface) text-(--text-primary) focus:outline-none focus:ring-1 focus:ring-(--primary)"
         />
