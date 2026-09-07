@@ -183,7 +183,7 @@ export default function SignupPage() {
                     I agree with{" "}
                     <Link 
                      href='/signup/terms'
-                     className="underline font-medium cursor-pointer hover:text-(--text-primary)">
+                     className="underline font-medium cursor-pointer hover:text-(--text-primary) transition">
                       Terms of Service
                     </Link>
                   </span>
@@ -244,12 +244,12 @@ export default function SignupPage() {
                   // onClick={signUpWithGoogle}
                   disabled={isLoading}
                 >
-                  {isLoading ? 'Creating Account...' : 'Sign up with Google'}
+                  {isLoading ? 'Creating Account...' : 'Continue with Google'}
                 </button>
 
                 <p className="mt-5 text-sm text-(--text-secondary)">
                   Already have an account?{" "}
-                  <span className="font-semibold underline cursor-pointer hover:text-(--text-primary)">
+                  <span className="font-semibold underline cursor-pointer hover:text-(--text-primary) transition">
                     <Link href='/login'>
                       Login
                     </Link>

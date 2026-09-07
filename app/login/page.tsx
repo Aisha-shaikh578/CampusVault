@@ -119,7 +119,7 @@ export default function LoginPage() {
                 <input
                   type="email"
                   placeholder="Email"
-                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.email ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
+                  className={`w-full rounded-2xl border px-5 py-3 outline-none transition ${errors.email ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                   value={email}
                   onChange={handleEmail}
                 />
@@ -130,7 +130,7 @@ export default function LoginPage() {
                 <input
                   type="password"
                   placeholder="Password"
-                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.password ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
+                  className={`w-full rounded-2xl border px-5 py-3 outline-none transition ${errors.password ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                   value={password}
                   onChange={handlePassword}
                 />
@@ -147,16 +147,16 @@ export default function LoginPage() {
               </button>
             </div>
 
-            <div className="relative mt-12">
+            <div className="relative mt-6">
               <div className="relative flex flex-col items-center">
                 <button
                   className="
                     w-full
                     rounded-2xl
-                    bg-(--surface)
+                    bg-(--surface-variant)
                     text-(--text-secondary)
-                    hover:bg-(--surface-variant)
-                    py-4
+                    hover:bg-(--surface)
+                    py-3
                     text-lg
                     font-semibold
                     hover:opacity-90
@@ -173,10 +173,40 @@ export default function LoginPage() {
                   {isLoading ? 'Logging in...' : 'LOGIN'}
                 </button>
 
+              <div className="flex gap-2 items-center my-2">
+                <div className="h-0.5 w-20 opacity-50 pt-1"><hr/></div>
+                <div>or</div>
+                <div className="h-0.5 w-20 opacity-50 pt-1"><hr/></div>
+              </div>
+
+               {/* Google Sign Up */}
+                <button
+                  className="
+                    w-full
+                    rounded-2xl
+                    border
+                    border-(--border)
+                    bg-(--surface)
+                    text-(--text-secondary)
+                    py-3
+                    text-lg
+                    font-semibold
+                    hover:bg-(--surface-variant)
+                    transition
+                    cursor-pointer
+                    disabled:cursor-not-allowed
+                    disabled:opacity-70
+                  "
+                  // onClick={signInWithGoogle}
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Logging in...' : 'Continue with Google'}
+                </button>
+
                 <p className="mt-5 text-sm text-(--text-secondary)">
                   Don&apos;t have an account?{" "}
                   <span className="font-semibold underline cursor-pointer">
-                    <Link href='/signup'>
+                    <Link href='/signup' className="hover:text-(--text-primary) transition">
                       Sign Up
                     </Link>
                   </span>
