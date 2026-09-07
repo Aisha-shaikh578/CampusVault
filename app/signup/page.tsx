@@ -142,7 +142,7 @@ export default function SignupPage() {
                   placeholder="Email"
                   value={email}
                   onChange={handleEmail}
-                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.email ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
+                  className={`w-full rounded-2xl border px-5 py-3 outline-none transition ${errors.email ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                 />
                 {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
               </div>
@@ -153,7 +153,7 @@ export default function SignupPage() {
                   placeholder="Password"
                   value={password}
                   onChange={handlePassword}
-                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.password ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
+                  className={`w-full rounded-2xl border px-5 py-3 outline-none transition ${errors.password ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                 />
                 {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
               </div>
@@ -164,7 +164,7 @@ export default function SignupPage() {
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={handleConfirmPassword}
-                  className={`w-full rounded-2xl border px-5 py-4 outline-none transition ${errors.confirmPassword ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
+                  className={`w-full rounded-2xl border px-5 py-3 outline-none transition ${errors.confirmPassword ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                 />
                 {errors.confirmPassword && <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>}
               </div>
@@ -183,7 +183,7 @@ export default function SignupPage() {
                     I agree with{" "}
                     <Link 
                      href='/signup/terms'
-                     className="underline font-medium cursor-pointer">
+                     className="underline font-medium cursor-pointer hover:text-(--text-primary)">
                       Terms of Service
                     </Link>
                   </span>
@@ -192,8 +192,7 @@ export default function SignupPage() {
               </div>
             </div>
 
-            {/* Bottom Curved Area */}
-            <div className="relative mt-10">
+            <div className="relative mt-6">
               <div className="relative flex flex-col items-center">
                 <button
                   className="
@@ -201,12 +200,12 @@ export default function SignupPage() {
                     rounded-2xl
                     border
                     border-(--border)
-                    bg-(--surface)
+                    bg-(--surface-variant)
                     text-(--text-secondary)
-                    py-4
+                    py-3
                     text-lg
                     font-semibold
-                    hover:bg-(--surface-variant)
+                    hover:bg-(--surface)
                     transition
                     cursor-pointer
                     disabled:cursor-not-allowed
@@ -218,9 +217,39 @@ export default function SignupPage() {
                   {isLoading ? 'Creating Account...' : 'SIGN UP'}
                 </button>
 
+                <div className="flex gap-2 items-center my-2">
+                  <div className="h-0.5 w-20 opacity-50 pt-1"><hr/></div>
+                  <div>or</div>
+                  <div className="h-0.5 w-20 opacity-50 pt-1"><hr/></div>
+                </div>
+
+                {/* Google Sign Up */}
+                <button
+                  className="
+                    w-full
+                    rounded-2xl
+                    border
+                    border-(--border)
+                    bg-(--surface)
+                    text-(--text-secondary)
+                    py-3
+                    text-lg
+                    font-semibold
+                    hover:bg-(--surface-variant)
+                    transition
+                    cursor-pointer
+                    disabled:cursor-not-allowed
+                    disabled:opacity-70
+                  "
+                  // onClick={signUpWithGoogle}
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Creating Account...' : 'Sign up with Google'}
+                </button>
+
                 <p className="mt-5 text-sm text-(--text-secondary)">
                   Already have an account?{" "}
-                  <span className="font-semibold underline cursor-pointer">
+                  <span className="font-semibold underline cursor-pointer hover:text-(--text-primary)">
                     <Link href='/login'>
                       Login
                     </Link>
