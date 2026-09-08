@@ -4,10 +4,13 @@ import { FadeIn } from "@/context/motionContext";
 import { auth } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type ChangeEvent } from "react";
 import { toast } from "react-hot-toast";
+import { CiLock, CiMail } from "react-icons/ci";
+import googleLogo from '../../images/google.png';
 
 interface FormErrors {
   email?: string;
@@ -136,35 +139,44 @@ export default function SignupPage() {
 
             {/* Form UI */}
             <div className="mt-8 space-y-4">
-              <div>
+              <div className="relative">
+                <div className="absolute bottom-3.5 mx-2">
+                  <CiMail size={22}/>
+                </div>
                 <input
                   type="email"
                   placeholder="Email"
                   value={email}
                   onChange={handleEmail}
-                  className={`w-full rounded-2xl border px-5 py-3 outline-none transition ${errors.email ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
+                  className={`w-full rounded-2xl border pl-9 pr-2 py-3 outline-none transition ${errors.email ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                 />
                 {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
               </div>
 
-              <div>
+              <div className="relative">
+                <div className="absolute bottom-3.5 mx-2">
+                  <CiLock size={22}/>
+                </div>
                 <input
                   type="password"
                   placeholder="Password"
                   value={password}
                   onChange={handlePassword}
-                  className={`w-full rounded-2xl border px-5 py-3 outline-none transition ${errors.password ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
+                  className={`w-full rounded-2xl border pl-9 pr-2 py-3 outline-none transition ${errors.password ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                 />
                 {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
               </div>
 
-              <div>
+              <div className="relative">
+                <div className="absolute bottom-3.5 mx-2">
+                  <CiLock size={22}/>
+                </div>
                 <input
                   type="password"
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={handleConfirmPassword}
-                  className={`w-full rounded-2xl border px-5 py-3 outline-none transition ${errors.confirmPassword ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
+                  className={`w-full rounded-2xl border pl-9 pr-2 py-3 outline-none transition ${errors.confirmPassword ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                 />
                 {errors.confirmPassword && <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>}
               </div>
@@ -203,7 +215,8 @@ export default function SignupPage() {
                     bg-(--surface-variant)
                     text-(--text-secondary)
                     py-3
-                    text-lg
+                    text-md
+                    mdL:text-lg
                     font-semibold
                     hover:bg-(--surface)
                     transition
@@ -233,18 +246,30 @@ export default function SignupPage() {
                     bg-(--surface)
                     text-(--text-secondary)
                     py-3
-                    text-lg
+                    text-md
+                    md:text-lg
                     font-semibold
                     hover:bg-(--surface-variant)
                     transition
                     cursor-pointer
                     disabled:cursor-not-allowed
                     disabled:opacity-70
+                    flex
+                    flex-row-reverse
+                    gap-0.5
+                    md:gap-2
+                    justify-center
+                    items-center
                   "
                   // onClick={signUpWithGoogle}
                   disabled={isLoading}
                 >
                   {isLoading ? 'Creating Account...' : 'Continue with Google'}
+                   <span>
+                      <Image 
+                      src={googleLogo} alt="Logo" height={35} width={35} 
+                      className="rounded-full"/>
+                    </span>
                 </button>
 
                 <p className="mt-5 text-sm text-(--text-secondary)">

@@ -4,11 +4,13 @@ import { FadeIn } from "@/context/motionContext";
 import { auth } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type ChangeEvent } from "react";
 import { toast } from "react-hot-toast";
-
+import { CiLock, CiMail } from "react-icons/ci";
+import googleLogo from '../../images/google.png';
 interface FormErrors {
   email?: string;
   password?: string;
@@ -115,22 +117,28 @@ export default function LoginPage() {
 
             {/* Form UI */}
             <div className="mt-8 space-y-4">
-              <div>
+              <div className="relative">
+                <div className="absolute bottom-3.5 mx-2">
+                  <CiMail size={22}/>
+                </div>
                 <input
                   type="email"
                   placeholder="Email"
-                  className={`w-full rounded-2xl border px-5 py-3 outline-none transition ${errors.email ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
+                  className={`w-full rounded-2xl border pl-9 pr-2 py-3 outline-none transition ${errors.email ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                   value={email}
                   onChange={handleEmail}
                 />
                 {errors.email && <p className="mt-1 text-sm text-(--danger)">{errors.email}</p>}
               </div>
 
-              <div>
+              <div className="relative">
+                <div className="absolute bottom-3.5 mx-2">
+                  <CiLock size={22}/>
+                </div>
                 <input
                   type="password"
                   placeholder="Password"
-                  className={`w-full rounded-2xl border px-5 py-3 outline-none transition ${errors.password ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
+                  className={`w-full rounded-2xl border pl-9 pr-2 py-3 outline-none transition ${errors.password ? 'border-(--danger) focus:border-(--danger)' : 'border-(--border) focus:border-black'}`}
                   value={password}
                   onChange={handlePassword}
                 />
@@ -157,7 +165,8 @@ export default function LoginPage() {
                     text-(--text-secondary)
                     hover:bg-(--surface)
                     py-3
-                    text-lg
+                    text-md
+                    md:text-lg
                     font-semibold
                     hover:opacity-90
                     cursor-pointer
@@ -189,18 +198,30 @@ export default function LoginPage() {
                     bg-(--surface)
                     text-(--text-secondary)
                     py-3
-                    text-lg
+                    text-md
+                    md:text-lg
                     font-semibold
                     hover:bg-(--surface-variant)
                     transition
                     cursor-pointer
                     disabled:cursor-not-allowed
                     disabled:opacity-70
+                    flex
+                    gap-0.5
+                    md:gap-2
+                    flex-row-reverse
+                    justify-center
+                    items-center
                   "
                   // onClick={signInWithGoogle}
                   disabled={isLoading}
                 >
                   {isLoading ? 'Logging in...' : 'Continue with Google'}
+                  <span>
+                    <Image 
+                    src={googleLogo} alt="Logo" height={35} width={35} 
+                    className="rounded-full"/>
+                  </span>
                 </button>
 
                 <p className="mt-5 text-sm text-(--text-secondary)">
