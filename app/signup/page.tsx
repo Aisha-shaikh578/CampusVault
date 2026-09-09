@@ -3,7 +3,7 @@
 import { FadeIn } from "@/context/motionContext";
 import { auth } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -48,6 +48,31 @@ export default function SignupPage() {
     setErrors((prev) => ({ ...prev, terms: undefined }));
   };
 
+  const signUpWithGoogle = async() => {
+    if (!agreeToTerms) {
+      setErrors({terms: 'Please agree to the Terms of Service.'});
+      return;
+    }
+
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+     const googleProvider = new GoogleAuthProvider();
+     const result = await signInWithPopup(auth, googleProvider);
+     const user = result.user;
+     toast.success('Account created successfully.');
+     router.push('/dashboard');
+    } catch (error) {
+      const message = error instanceof FirebaseError
+        ? getFirebaseErrorMessage(error)
+        : 'An unexpected error occurred while creating your account.';
+      toast.error(message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   const getFirebaseErrorMessage = (error: FirebaseError) => {
     switch (error.code) {
       case 'auth/email-already-in-use':
@@ -82,7 +107,7 @@ export default function SignupPage() {
     }
 
     if (!agreeToTerms) {
-      nextErrors.terms = 'Please agree to the Terms & Services.';
+      nextErrors.terms = 'Please agree to the Terms of Service.';
     }
 
     return nextErrors;
@@ -261,7 +286,7 @@ export default function SignupPage() {
                     justify-center
                     items-center
                   "
-                  // onClick={signUpWithGoogle}
+                  onClick={signUpWithGoogle}
                   disabled={isLoading}
                 >
                   {isLoading ? 'Creating Account...' : 'Continue with Google'}
