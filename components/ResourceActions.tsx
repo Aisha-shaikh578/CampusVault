@@ -10,6 +10,7 @@ import { ResourceActionProps } from '@/types/resourceType';
 import { TiTick } from 'react-icons/ti';
 import { fetchResourceById } from '@/services/resourceService';
 import { toast } from 'react-hot-toast';
+import { BsStars } from 'react-icons/bs';
 
 
 export default function ResourceActions({ resourceId }: ResourceActionProps) {
@@ -136,6 +137,12 @@ export default function ResourceActions({ resourceId }: ResourceActionProps) {
         text={`${bookmarked === true ? 'Bookmarked' : 'Bookmark'}`} 
         icon={bookmarked === true ? <TiTick size={24}/> : <RiBookMarkedFill size={18}/>}
         onClick={handleBookmark}/>
+
+        <Button
+        text={'Analyse'}
+        icon={<BsStars size={24} />}
+        // onClick={analyse}
+        />
       </div>
     </div>
   )

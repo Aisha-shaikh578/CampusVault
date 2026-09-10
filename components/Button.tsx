@@ -10,7 +10,7 @@ export default function Button({text, icon, onClick}:ButtonProps) {
   return (
     <button 
     onClick={onClick}
-    className="flex items-center gap-2 px-5 py-3 border border-(--border) rounded-lg text-(--text-primary) hover:text-(--on-primary) hover:bg-(--primary) transition cursor-pointer">
+    className="flex items-center gap-2 md:gap-3 px-2.5 md:px-5 py-3 border border-(--border) rounded-lg text-(--text-primary) hover:text-(--on-primary) hover:bg-(--primary) transition cursor-pointer">
       {icon}
       {text}
     </button>
