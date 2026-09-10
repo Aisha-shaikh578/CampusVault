@@ -1,9 +1,9 @@
 'use client'
 
 import { FadeIn } from "@/context/motionContext";
-import { auth } from "@/lib/firebase";
+import { auth, db } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ import { useState, type ChangeEvent } from "react";
 import { toast } from "react-hot-toast";
 import { CiLock, CiMail } from "react-icons/ci";
 import googleLogo from '../../images/google.png';
+import { doc, getDoc } from "firebase/firestore";
 interface FormErrors {
   email?: string;
   password?: string;
@@ -22,6 +23,35 @@ export default function LoginPage() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
+    const signInWithGoogle = async() => {
+      if (isLoading) return;
+      setIsLoading(true);
+  
+      try {
+       const googleProvider = new GoogleAuthProvider();
+       const result = await signInWithPopup(auth, googleProvider);
+       const user = result.user;
+       const userRef = doc(db, 'users', user.uid);
+       const userSnapshot = await getDoc(userRef);
+
+       if(userSnapshot.exists()) {
+        toast.success('Account created successfully.');
+        router.push('/dashboard');
+        return;
+       }
+       await signOut(auth);
+       toast.error('No account found. Please sign up first.');
+       router.push('/signup');
+      } catch (error) {
+        const message = error instanceof FirebaseError
+          ? getFirebaseErrorMessage(error)
+          : 'An unexpected error occurred while creating your account.';
+        toast.error(message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
 
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -213,7 +243,7 @@ export default function LoginPage() {
                     justify-center
                     items-center
                   "
-                  // onClick={signInWithGoogle}
+                  onClick={signInWithGoogle}
                   disabled={isLoading}
                 >
                   {isLoading ? 'Logging in...' : 'Continue with Google'}

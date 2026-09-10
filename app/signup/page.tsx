@@ -1,7 +1,7 @@
 'use client'
 
 import { FadeIn } from "@/context/motionContext";
-import { auth } from "@/lib/firebase";
+import { auth, db } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import { useState, type ChangeEvent } from "react";
 import { toast } from "react-hot-toast";
 import { CiLock, CiMail } from "react-icons/ci";
 import googleLogo from '../../images/google.png';
+import { doc, setDoc } from "firebase/firestore";
 
 interface FormErrors {
   email?: string;
@@ -61,6 +62,10 @@ export default function SignupPage() {
      const googleProvider = new GoogleAuthProvider();
      const result = await signInWithPopup(auth, googleProvider);
      const user = result.user;
+
+     await setDoc(doc(db, 'users', user.uid), {
+      profileImgUrl: null
+     })
      toast.success('Account created successfully.');
      router.push('/dashboard');
     } catch (error) {
