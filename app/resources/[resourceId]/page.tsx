@@ -36,9 +36,11 @@ export default async function Details({ params }: {
               {resource?.title}
             </h1>
 
+           {resource && 
             <p className="text-(--text-secondary) mt-1">
-              {resource?.category} • {`${formatDistanceToNow(resource?.uploadedAt.toDate())} ago`}
+              {resource.category} • {`${formatDistanceToNow(resource.uploadedAt.toDate())} ago`}
             </p>
+           }
 
             <p className="text-sm text-(--text-secondary) mt-1">
               Uploaded by {resource?.uploadedBy.name}
