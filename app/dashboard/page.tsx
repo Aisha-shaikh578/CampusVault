@@ -41,6 +41,8 @@ export default function DashboardPage() {
     if(!user) return;
 
     async function getBookmarksCnt() {
+      if(!user) return;
+
       const count = await countBookmarks(user.uid);
       setBookmarked(count);
     }
