@@ -21,6 +21,10 @@ export default function BookmarksPage() {
     }
 
     async function loadBookmarks() {
+      if (!user) {
+       return;
+      }
+
       try {
         const resources = await getBookmarkedResources(user.uid);
         setBookmarkedResources(resources);
