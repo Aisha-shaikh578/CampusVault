@@ -10,7 +10,7 @@ export default function ProfilePicture({userProfilePic}: userProfilePicProps) {
 
   return (
    <img
-    src={userProfilePic ?? profilePic}
+    src={userProfilePic ?? profilePic ?? undefined}
     alt="Profile preview"
     className="h-full w-full object-cover"
     />
