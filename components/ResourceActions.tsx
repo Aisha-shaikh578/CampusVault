@@ -11,6 +11,7 @@ import { TiTick } from 'react-icons/ti';
 import { fetchResourceById } from '@/services/resourceService';
 import { toast } from 'react-hot-toast';
 import { BsStars } from 'react-icons/bs';
+import AnalyzeModal from './AnalyzeModal';
 
 
 export default function ResourceActions({ resourceId }: ResourceActionProps) {
@@ -18,6 +19,7 @@ export default function ResourceActions({ resourceId }: ResourceActionProps) {
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloaded, setDownloaded] = useState(false);
   const { user } = useAuth();
+  const [isAnalyzeOpen, setIsAnalyzeOpen] = useState(false);
 
   const handleBookmark = async() => {
     if(!user) return;
@@ -141,8 +143,12 @@ export default function ResourceActions({ resourceId }: ResourceActionProps) {
         <Button
         text={'Analyse'}
         icon={<BsStars size={24} />}
-        // onClick={analyse}
+        onClick={() => setIsAnalyzeOpen(true)}
         />
+        <AnalyzeModal 
+        isOpen={isAnalyzeOpen} 
+        onClose={() => setIsAnalyzeOpen(false)} 
+        resourceId={resourceId}/>
       </div>
     </div>
   )
