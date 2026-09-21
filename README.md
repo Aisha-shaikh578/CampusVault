@@ -1,16 +1,14 @@
-Campus Vault - Student's Resource Sharing Platform
+# *Campus Vault - Student's Resource Sharing Platform*
 
-Overview
+## Overview
 
 Campus Vault is a modern resource-sharing platform built for students to organize, upload, search, download and share academic resources such as notes, PDFs, previous year question papers, and useful learning links.
 
 The goal of this project is to solve a common problem faced by students: losing important study materials across chats, drives, and social media platforms. Campus Vault provides a centralized place where students can securely store and access educational resources anytime.
 
----
+## Features
 
-Features
-
-Authentication
+### *Authentication*
 
 - User Registration
 - User Login
@@ -20,7 +18,7 @@ Authentication
 - Logout Functionality
 - Upload/Download/Share resources
 
-Resource Management
+### *Resource Management*
 
 - Upload PDF Notes
 - Upload Previous Year Question Papers
@@ -28,20 +26,20 @@ Resource Management
 - Categorize Resources by Subject
 - Add Resource Links
 
-Search & Discovery
+### *Search & Discovery*
 
 - Search Resources by Title
 - Filter Resources by Subject
 - Quick Access to Uploaded Resources
 
-User Experience
+### *User Experience*
 
 - Responsive Design
 - Light Mode / Dark Mode
 - Modern Dashboard Interface
 - Mobile-Friendly Layout
 
-Storage
+### *Storage*
 
 - Secure File Uploads using Supabase Storage
 - Cloud-based Resource Access
@@ -49,36 +47,37 @@ Storage
 
 ---
 
-Tech Stack
+## Tech Stack
 
-Frontend
+### *Frontend*
 
 - Next.js
 - TypeScript
 - Tailwind CSS
 
-State Management
+### *State Management*
 
 - Context Api
 
-Backend Services
+### *Backend Services*
 
 - Firebase Authentication
 - Firebase Firestore
 - Supabase Storage
 
-Deployment
+### *Deployment*
 
 - Vercel
 
 ---
 
-Database Design
+##  Database Design
 
-Firestore Collection
+## *Firestore Collection*
 
-resources
+### resources
 
+```json
 {
   category: "Computer Science",
   fileURL: "https://...",
@@ -92,39 +91,40 @@ resources
   }
   userProfilePic: "https://..." 
 }
+```
 
 ---
 
-Installation
+# Installation
 
-Clone the repository:
+## Clone the repository:
 
 git clone https://github.com/Aisha-shaikh578/CampusVault
 
-Install dependencies:
+## Install dependencies:
 
 npm install
 
-Run development server:
+## Run development server:
 
 npm run dev
 
 ---
 
-Environment Variables
+## Environment Variables
 
 Create a ".env.local" file in the root directory:
 
+```json
 NEXT_PUBLIC_FIREBASE_API_KEY=
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
 NEXT_PUBLIC_FIREBASE_PROJECT_ID=
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
 NEXT_PUBLIC_FIREBASE_APP_ID=
+```
 
----
-
-Future Enhancements
+## Future Enhancements
 
 - Resource Rating System
 - Resource Recommendations
@@ -132,9 +132,8 @@ Future Enhancements
 - Semester-wise Categorization
 - Resource Analytics Dashboard
 
----
 
-This project demonstrates:
+## This project demonstrates:
 
 - Authentication Implementation
 - CRUD Operations
@@ -145,9 +144,8 @@ This project demonstrates:
 - Real-world Project Architecture
 - Frontend and Backend Integration
 
----
 
-Screenshots
+## Screenshots
 
 - Login Page
 - Dashboard
@@ -156,8 +154,8 @@ Screenshots
 
 ---
 
-Author
+### Author
 
-Aisha Shaikh
+*Aisha Shaikh*
 
-Built with Next.js, Tailwind CSS, Firebase Authentication, Firestore, and Supabase Storage.
+Built with **Next.js**, **Tailwind.css**, **Firebase Authentication**,  **Firestore**, and **Supabase Storage**.
