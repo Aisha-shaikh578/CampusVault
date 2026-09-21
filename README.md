@@ -80,11 +80,17 @@ Firestore Collection
 resources
 
 {
+  category: "Computer Science",
+  fileURL: "https://...",
+  resourceType: "PDF",
   title: "DSA Notes",
-  subject: "Computer Science",
-  fileUrl: "https://...",
-  uploadedBy: "userId",
-  createdAt: Timestamp
+  uploadedAt: Timestamp,
+  uploadedBy{
+    email: aisha@gmail.com",
+    name: "aisha,
+    uid: "XYZWk35tjnekjkpweekpkn9"
+  }
+  userProfilePic: "https://..." 
 }
 
 ---
