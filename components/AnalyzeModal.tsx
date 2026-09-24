@@ -60,18 +60,18 @@ const handleAnalyze = async () => {
 };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+      <div className="w-full max-w-2xl rounded-2xl bg-(--surface) p-6 shadow-xl">
         
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold flex">
             <BsStars color='orange' size={24}/>
-             <span>AI Analysis</span>
+             <span className='text-(--text-primary)'>AI Analysis</span>
           </h2>
 
           <button 
           onClick={onClose}
-          className='cursor-pointer'>
+          className='cursor-pointer text-(--text-primary)'>
             <MdCancel size={24}/> 
           </button>
         </div>
@@ -80,10 +80,10 @@ const handleAnalyze = async () => {
         <div className="mt-6">
           {!loading && !analysis && (
             <div>
-            <p className='text-gray-600'>Get an AI powered summary of this resource</p>
+            <p className='text-(--secondary)'>Get an AI powered summary of this resource</p>
             <button 
             onClick={handleAnalyze}
-            className='rounded-lg px-4 py-2 text-white bg-blue-600 mt-4 cursor-pointer hover:bg-blue-700'>
+            className='rounded-lg px-4 py-2 text-white bg-(--primary) mt-4 cursor-pointer hover:bg-(--primary-hover)'>
               Analyze
             </button>
             </div>
@@ -92,19 +92,19 @@ const handleAnalyze = async () => {
        {/* Loading State */} 
           {loading && (
             <div className='py-10 text-center'>
-              <p className='text-gray-600'>Analyzing Resource...</p>
+              <p className='text-(--secondary)'>Analyzing Resource...</p>
             </div>
           )}
         </div>
 
        {/* Result State */} 
         {!loading && analysis && (
-            <div>
+            <div className='text-(--text-primary)'>
               <h3 className="font-semibold">
                 Summary
               </h3>
 
-              <p className="mt-2 text-gray-600">
+              <p className="mt-2 text-(--secondary)">
                 {analysis.summary}
               </p>
 
@@ -112,7 +112,7 @@ const handleAnalyze = async () => {
                 Key Points
               </h3>
 
-              <ul className="mt-2 list-disc pl-5 text-gray-600">
+              <ul className="mt-2 list-disc pl-5 text-(--secondary)">
                 {analysis.keyPoints.map((point, index) => (
                   <li key={index}>{point}</li>
                 ))}
@@ -122,7 +122,7 @@ const handleAnalyze = async () => {
 
           {/* Error */}
           {error && (
-            <p className="mt-4 text-red-500">
+            <p className="mt-4 text-(--danger)">
               {error}
             </p>
           )}
