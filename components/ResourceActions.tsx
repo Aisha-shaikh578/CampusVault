@@ -113,7 +113,6 @@ export default function ResourceActions({ resourceId }: ResourceActionProps) {
       await navigator.clipboard.writeText(resource.fileUrl.toString());
       toast.success('Resource link copied!');
     } catch (error) {
-      console.error('Share error:', error);
       toast.error('Unable to share or copy the resource link.');
     }
   }
@@ -141,7 +140,7 @@ export default function ResourceActions({ resourceId }: ResourceActionProps) {
         onClick={handleBookmark}/>
 
         <Button
-        text={'Analyse'}
+        text={'Analyze'}
         icon={<BsStars size={24} />}
         onClick={() => setIsAnalyzeOpen(true)}
         />
