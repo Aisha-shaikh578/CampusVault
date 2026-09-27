@@ -38,9 +38,6 @@ const handleAnalyze = async () => {
 
     const data = await response.json();
 
-    console.log('API status:', response.status);
-    console.log('API response:', data);
-
     if (!response.ok) {
       throw new Error(data.error || 'Failed to analyze resource');
     }
@@ -61,7 +58,7 @@ const handleAnalyze = async () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="w-full max-w-2xl rounded-2xl bg-(--surface) p-6 shadow-xl">
+      <div className="w-full max-h-2/3 max-w-2xl rounded-2xl bg-(--surface) p-6 shadow-xl overflow-scroll scrollbar-none">
         
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold flex">
