@@ -56,7 +56,7 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="flex h-screen fixed left-0 bottom-0 flex-col justify-between border-r border-(--border) px-2 py-4 lg:w-55 w-20">
+    <aside className="flex min-h-dvh h-dvh fixed left-0 bottom-0 flex-col justify-between border-r border-(--border) px-2 py-4 lg:w-55 w-20">
       <div>
         {/* Logo */}
         <motion.div
