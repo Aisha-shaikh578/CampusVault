@@ -31,7 +31,7 @@ export default function SettingsPage() {
       toast.success('Account deleted successfully');
       redirect('/signup')
      } catch (error) {
-      console.log(error)
+      toast.error('Failed to Delete you account')
      }
   }
 

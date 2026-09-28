@@ -181,7 +181,9 @@ export default function LoginPage() {
               <button
                 className="text-sm text-(--text-secondary) hover:text-(--text-primary) cursor-pointer transition"
               >
+                <Link href='/login/new-password'>
                 Forgot Password?
+                </Link>
               </button>
             </div>
 
