@@ -17,12 +17,13 @@ import {
   FiFolder,
 } from "react-icons/fi";
 import { MdCancel } from "react-icons/md";
+import { RESOURCE_CATEGORIES } from "@/services/resourceService";
 
 export default function UploadPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [title, setTitle] = useState<string | null>(null);
-  const [category, setCategory] = useState('Computer Science');
+  const [category, setCategory] = useState('Other');
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [resourceType, setResourceType] = useState<'PDF' | 'Link' | 'Doc'>('PDF')
   const MAX_SIZE = 8 * 1024 * 1024; 
@@ -225,13 +226,11 @@ export default function UploadPage() {
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
                 >
-                  <option>Computer Science</option>
-                  <option>Operating System</option>
-                  <option>Mathematics</option>
-                  <option>DSA</option>
-                  <option>Physics</option>
-                  <option>Chemistry</option>
-                  <option>Other</option>
+                  {RESOURCE_CATEGORIES.map((availableCategory) => (
+                    <option key={availableCategory} value={availableCategory}>
+                      {availableCategory}
+                    </option>
+                  ))}
                 </select>
               </div>
 
