@@ -17,6 +17,7 @@ import logo from '../images/logo.png';
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { BiCategory } from "react-icons/bi";
 
 const menuItems = [
   {
@@ -35,8 +36,8 @@ const menuItems = [
     href: "/dashboard/bookmarks",
   },
   {
-    name: "Category",
-    icon: FiFolder,
+    name: "Categories",
+    icon: BiCategory,
     href: "/dashboard/category",
   },
   {

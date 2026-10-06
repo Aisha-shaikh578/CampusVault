@@ -1,6 +1,8 @@
 import { db } from "@/lib/firebase";
 import { Resource } from "@/types/resourceType";
-import { collection, doc, getDoc, getDocs, limit, orderBy, query } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, limit, orderBy, query, where } from "firebase/firestore";
+
+export const RESOURCE_CATEGORIES = ["Operating System", "Cyber Security", "DSA", "Data Science", "Languages", "Maths", "PYQ", "Other"];
 
 export async function fetchResources(): Promise<Resource[]> {
   const resourceQuery = query(
@@ -39,4 +41,19 @@ export async function fetchResourceById(resourceId: string): Promise<Resource | 
     id: resourceSnapshot.id,
     ...resourceSnapshot.data()
   } as Resource
+}
+
+
+export async function fetchResourcesByCategory(category: string): Promise<Resource[]> {
+  const resourceQuery = query(
+    collection(db, 'resources'),
+    where('category', '==', category),
+    orderBy('uploadedAt', 'desc')
+  );
+
+  const resourceSnapshot = await getDocs(resourceQuery);
+  return resourceSnapshot.docs.map((resourceDoc) => ({
+    id: resourceDoc.id,
+    ...resourceDoc.data(),
+  })) as Resource[];
 }
