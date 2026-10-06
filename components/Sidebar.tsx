@@ -35,6 +35,11 @@ const menuItems = [
     href: "/dashboard/bookmarks",
   },
   {
+    name: "Category",
+    icon: FiFolder,
+    href: "/dashboard/category",
+  },
+  {
     name: "Settings",
     icon: FiSettings,
     href: "/dashboard/settings",
