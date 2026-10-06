@@ -5,6 +5,7 @@ import { AuthProvider } from "@/context/authContext";
 import { ThemeProvider } from "@/context/themeContext";
 import { Toaster } from "react-hot-toast";
 import { MotionProvider } from "@/context/motionContext";
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
             <MotionProvider>
               <Toaster position="top-right" toastOptions={{ duration: 5000 }} />
               {children}
+              <Analytics />
             </MotionProvider>
           </ThemeProvider>
         </AuthProvider>

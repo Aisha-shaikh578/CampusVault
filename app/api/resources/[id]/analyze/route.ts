@@ -1,5 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { fetchResourceById } from "@/services/resourceService";
+import toast from "react-hot-toast";
 
 const ai = new GoogleGenAI({
 apiKey: process.env.GEMINI_API_KEY,
@@ -22,16 +23,10 @@ if (!resource) {
 }  
 
 const prompt = `
-
 Analyze this student resource and return:
 
 1. A short, clear summary.
-
-
 2. The most important key points.
-
-
-
 Keep the response useful and easy for a student to understand.
 `;
 
@@ -77,7 +72,7 @@ const analysis = JSON.parse(response.text);
 return Response.json({ analysis });
 
 } catch (error) {
-console.error("Resource analysis failed:", error);
+  toast.error("Resource analysis failed");
 
  return Response.json(  
   { error: "Failed to analyze resource" },  
