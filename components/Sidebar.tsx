@@ -6,6 +6,7 @@ import {
   FiFolder,
   FiBookmark,
   FiLogOut,
+  FiMessageSquare,
   FiSettings,
 } from "react-icons/fi";
 
@@ -39,6 +40,11 @@ const menuItems = [
     name: "Categories",
     icon: BiCategory,
     href: "/dashboard/category",
+  },
+  {
+    name: "Feedback",
+    icon: FiMessageSquare,
+    href: "/dashboard/feedback",
   },
   {
     name: "Settings",
