@@ -20,6 +20,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Campus Vault",
   description: "A collaborative academic resource sharing platform for students to upload, discover, bookmark, and discuss educational resources",
+  verification: {
+    google:"wYNH7YVxsxSkxoZTzJQTj2iYpokkUXldsHt7Q2IHmLY",
+  }
 };
 
 export default function RootLayout({
